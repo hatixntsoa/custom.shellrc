@@ -328,7 +328,7 @@ kill-line() {
 }
 
 zle -N kill-line
-bindkey "²²" kill-line
+bindkey "11" kill-line
 
 # this alias to clear
 alias c="clear"
@@ -1400,6 +1400,9 @@ alias lolbas="open_link https://lolbas-project.github.io"
 # this alias to open dockerhub
 alias dckhb="open_chrome_app docker.com DockerHub"
 
+# this alias to open PyPi App
+alias pypi="open_chrome_app pypi.org PyPi"
+
 # this alias to open GitLab
 alias gtlb="open_brave_app gitlab.com GitLab"
 
@@ -1408,7 +1411,6 @@ alias naga="open_chrome_app nagacap.com Naga"
 
 # this alias to open Trading View
 alias trdv="open_chrome_app tradingview.com TradingView"
-
 
 # this alias to open clock
 alias clock="open_chrome_app localhost Clock"

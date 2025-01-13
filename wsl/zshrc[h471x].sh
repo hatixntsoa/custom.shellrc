@@ -1046,6 +1046,11 @@ function wsh {
   open_win_app $WIRESHARK_PATH Wireshark
 }
 
+# this function to open BurpSuite
+function burp {
+  open_win_app $BURPSUITE_PATH BurpSuiteCommunity
+}
+
 # this function to launch mobaXterm
 function moba {
   open_win_app $MOBAXTERM_PATH MobaXterm

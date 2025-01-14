@@ -570,7 +570,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcapng|pdf|jpg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcapng|pdf|jpg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -1141,6 +1141,12 @@ function bwsop {
   local file_extension="${file_name##*.}"
   local current_directory="$PWD"
 
+  # check if we want to open a link instead
+  if [[ ! -f "$current_directory/$file_name" ]]; then
+    brave.exe "$file_name"
+    return 0
+  fi
+
   # Replace all Spaces and Back-slashes with %20
   local formatted_path=$(wslpath -m . | sed -e 's/ /%20/g' -e 's/\\//g')
   local formatted_file=$(echo "$file_name" | sed -e 's/ /%20/g' -e 's/\\//g')
@@ -1371,6 +1377,9 @@ alias gpt="open_chrome_app chatgpt.com ChatGPT"
 
 # this alias to open LinkedIn WebApp
 alias lnk="open_link https://linkedin.com/feed"
+
+# this alias to open MOCC App
+alias mocc="open_link https://moocs.openenglishprograms.org"
 
 # this alias to open Facebook app
 alias fb="open_brave_app facebook.com Facebook"
@@ -1666,6 +1675,9 @@ function winhost {
   cmd.exe /c sudo notepad "$WINDOWS_HOSTS_PATH"
   cd $old_path
 }
+
+# this alias to edit Winux Hosts
+alias hosts="nvmr /etc/hosts"
 
 # this alias to show IPV4 IP addresses
 alias show_ip="show_ip"

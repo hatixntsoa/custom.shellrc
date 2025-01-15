@@ -914,10 +914,19 @@ function open_win_app {
     return 0
   fi
 
-  local APP_PATH="$1"
-  local EXECUTABLE="$2"
+  local app_path="$1"
+  local executable="$2"
+  local executable_extension="${executable##*.}"
 
-  explorer.exe "$(wslpath -w $APP_PATH)\\$EXECUTABLE.exe"
+  # check the extension of the executable
+  if [[ "$executable_extension" == "bat" ]]; then
+    cd $app_path
+    cmd.exe /c $executable
+    cd - &>/dev/null
+  else
+    explorer.exe "$(wslpath -w $app_path)\\$executable.exe"
+  fi
+
   return 0
 }
 
@@ -1004,6 +1013,15 @@ function aps {
 # this function to open GNS3
 function gns {
   open_win_app $GNS3_PATH gns3
+}
+
+# this function to open Windows Ghidra
+function ghidra {
+  if [[ "$DISPLAY" == ":0" ]]; then
+    open_win_app $GHIDRA_PATH ghidraRun.bat
+  else
+    ghidra "$@"
+  fi
 }
 
 # this function to launch MuseScore

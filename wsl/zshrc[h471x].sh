@@ -1121,7 +1121,7 @@ function obs {
   powershell.exe -command \
     "(New-Object -ComObject Shell.Application).MinimizeAll()"
 
-  # start recording on OBS
+  # start screen recording on OBS
   cmd.exe /c start obs64.exe \
     --startrecording \
     --multi \
@@ -1328,12 +1328,18 @@ function thm {
   cd /mnt/c
 
   if [[ "$1" == "connect" ]]; then
+    # fwd port first
+    fwd on
+
     cmd.exe /c start openvpn-gui \
       --command silent_connection 1
 
     cmd.exe /c start openvpn-gui \
       --command connect thm_h471x
   elif [[ "$1" == "disconnect" ]]; then
+    # stop forwarding ports
+    fwd off
+
     cmd.exe /c start openvpn-gui \
       --command disconnect thm_h471x
   elif [[ "$1" == "status" ]]; then
@@ -1449,6 +1455,9 @@ alias clock="open_chrome_app localhost Clock"
 
 # this alias to open reverse shell generator
 alias revshell="open_chrome_app www.revshells.com Revshell"
+
+# this alias to open  hacktool extension on brave
+alias ht="open_link chrome-extension://cmbndhnoonmghfofefkcccljbkdpamhi/index.html"
 
 # this alias to open CrackStation App
 alias crack="open_chrome_app crackstation.net CrackStation"
@@ -1696,6 +1705,26 @@ function winhost {
 
 # this alias to edit Winux Hosts
 alias hosts="nvmr /etc/hosts"
+
+# this alias to forward WSL2 network to Windows
+alias fwd="fwd"
+
+# this function for fwd alias
+function fwd {
+  cd $WSL_PORT_FORWARD_PATH
+
+  if [[ "$1" == "on" ]]; then
+    cmd.exe /c "sudo .\port.forward.bat"
+  elif [[ "$1" == "off" ]]; then
+    cmd.exe /c "sudo .\reset.forward.bat"
+  elif [[ "$1" == "status" ]]; then
+    cmd.exe /c "sudo .\status.forward.bat"
+  else
+    echo " Usage: $0 on|off|status"
+  fi
+
+  cd - &>/dev/null
+}
 
 # this alias to show IPV4 IP addresses
 alias show_ip="show_ip"

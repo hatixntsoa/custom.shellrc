@@ -1711,17 +1711,17 @@ alias fwd="fwd"
 
 # this function for fwd alias
 function fwd {
-  cd $WSL_PORT_FORWARD_PATH
+  cd $WSL_PORT_FORWARD_PATH/scripts
 
   # NOTE : The usage of sudo on Windows
   # can be enabled, to make this to work,
   # on Settings > System > For Developers
   if [[ "$1" == "on" ]]; then
-    cmd.exe /c sudo --inline .\\port.forward.bat
+    cmd.exe /c sudo --inline .\\forward.bat
   elif [[ "$1" == "off" ]]; then
-    cmd.exe /c sudo --inline .\\reset.forward.bat
+    cmd.exe /c sudo --inline .\\reset.bat
   elif [[ "$1" == "status" ]]; then
-    cmd.exe /c sudo --inline .\\status.forward.bat
+    cmd.exe /c sudo --inline .\\status.bat
   else
     echo " Usage: $0 on|off|status"
   fi

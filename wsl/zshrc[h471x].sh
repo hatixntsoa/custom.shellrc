@@ -570,7 +570,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcapng|pdf|jpg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -1699,7 +1699,7 @@ function winhost {
 
   old_path="$PWD"
   cd "$(dirname "$(wslpath "$WINDOWS_HOSTS_PATH")")"
-  cmd.exe /c sudo notepad "$WINDOWS_HOSTS_PATH"
+  cmd.exe /c sudo --inline notepad "$WINDOWS_HOSTS_PATH"
   cd $old_path
 }
 
@@ -1713,12 +1713,15 @@ alias fwd="fwd"
 function fwd {
   cd $WSL_PORT_FORWARD_PATH
 
+  # NOTE : The usage of sudo on Windows
+  # can be enabled, to make this to work,
+  # on Settings > System > For Developers
   if [[ "$1" == "on" ]]; then
-    cmd.exe /c "sudo .\port.forward.bat"
+    cmd.exe /c sudo --inline .\\port.forward.bat
   elif [[ "$1" == "off" ]]; then
-    cmd.exe /c "sudo .\reset.forward.bat"
+    cmd.exe /c sudo --inline .\\reset.forward.bat
   elif [[ "$1" == "status" ]]; then
-    cmd.exe /c "sudo .\status.forward.bat"
+    cmd.exe /c sudo --inline .\\status.forward.bat
   else
     echo " Usage: $0 on|off|status"
   fi

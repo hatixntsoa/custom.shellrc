@@ -329,6 +329,7 @@ kill-line() {
 
 zle -N kill-line
 bindkey "11" kill-line
+bindkey "²²" kill-line
 
 # this alias to clear
 alias c="clear"
@@ -1080,7 +1081,7 @@ function wub {
 }
 
 # this function to open tor browser
-function tor {
+function torb {
   open_win_app $TOR_PATH tor
 }
 
@@ -1390,6 +1391,42 @@ function pwn {
     fi
   else
     open_chrome_app pwnedlabs.io PwnedLabs
+  fi
+
+  # get back to the old directory
+  cd $dest
+}
+
+# this alias to open Pwned Labs Web App
+# AWS Learning Platform
+alias flg="flg"
+
+# this function for pwn alias
+function flg {
+  dest="$PWD"
+  cd /mnt/c
+
+  if [[ "$1" == "connect" ]]; then
+    cmd.exe /c start openvpn-gui \
+      --command silent_connection 1
+
+    cmd.exe /c start openvpn-gui \
+      --command connect flagyard
+  elif [[ "$1" == "disconnect" ]]; then
+    cmd.exe /c start openvpn-gui \
+      --command disconnect flagyard
+  elif [[ "$1" == "status" ]]; then
+    local check="ping -c 1 -W 5 "
+    local check_message="Checking FlagYard Connectivity ..."
+    local reachable="echo ' $check_message' && eval $check flagyard.com &> /dev/null;"
+
+    if eval $reachable; then
+      echo " ${GREEN}Connected ${RESET}to FlagYard OpenVPN"
+    else
+      echo " ${RED}Disconnected ${RESET}from FlagYard OpenVPN"
+    fi
+  else
+    open_chrome_app flagyard.com Flagyard
   fi
 
   # get back to the old directory

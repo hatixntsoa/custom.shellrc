@@ -1082,7 +1082,7 @@ function wub {
 
 # this function to open tor browser
 function torb {
-  open_win_app $TOR_PATH tor
+  open_win_app $TOR_PATH firefox
 }
 
 # this function to open total commander
@@ -1354,7 +1354,7 @@ function thm {
       echo " ${RED}Disconnected ${RESET}from TryHackMe OpenVPN"
     fi
   else
-    open_chrome_app tryhackme.com TryHackMe
+    open_brave_app tryhackme.com TryHackMe
   fi
 
   # get back to the old directory
@@ -1519,6 +1519,9 @@ alias hcrk="open_chrome_app hackerrank.com HackerRank"
 
 # this alias to open reverse shell generator
 alias ipinfo="open_chrome_app ipinfo.io IPInfo"
+
+# this alias to open wigle.net, an OSINT tool
+alias wgl="open_link https://wigle.net"
 
 # this alias to open Virus Total Web App
 alias vrst="open_chrome_app virustotal.com VirusTotal"

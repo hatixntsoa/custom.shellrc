@@ -1502,6 +1502,9 @@ alias crack="open_chrome_app crackstation.net CrackStation"
 # this alias to open 247 CTF App
 alias ctf="open_chrome_app 247ctf.com 247CTF"
 
+# this alias to open PicoCTF
+alias pico="open_link https://www.picoctf.org"
+
 # this alias to open Cisco Networking Academy
 alias cna="open_chrome_app www.netacad.com 'Cisco Networking Academy'"
 

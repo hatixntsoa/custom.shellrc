@@ -1675,6 +1675,68 @@ function cmd {
   x;
 }
 
+# Alias to call the windows npm
+alias npm="npm"
+
+# Function for npm alias
+function npm() {
+  local npm_cmd='cmd.exe /c npm "$@"'
+
+  # loop through 3 arguments
+  # to get the script name
+  # and store them into an array
+  local arg_count=3
+  local args=()
+
+  # Loop through all arguments
+  for ((i = 1; i <= arg_count; i++)); do
+    args+="${(@)@:$i:1}"
+  done
+
+  if [[ "${args[1]}" == "install" && "${args[2]}" == "-g" ]]; then
+    # Retain only letters (a-z, A-Z) and dashes (-)
+    # get the name of the package to directly
+    # associate it to a new alias after installation
+    local package_name=$(echo "${args[3]}" | sed 's/[^a-zA-Z-]//g')
+  elif [[ ("$arg" != "--verbose" && "$arg" != "-g") && ("$arg" == -* || "$arg" == --*) ]]; then
+    npm_cmd='cmd.exe /c npm "$@"'
+  fi
+
+  # only run inside windows directory
+  if [[ "$PWD" == "/mnt/"* ]]; then
+
+    # install alias only if we install
+    # an npm script globally
+    if [[ -n "$package_name" ]]; then
+      install_alias $package_name
+    else
+      eval "$npm_cmd"
+    fi
+  else
+    echo "${BOLD}${RED}Please execute this command inside Windows directory!"
+  fi
+}
+
+# Alias to call the windows npx
+alias npx="npx"
+
+# Function for npx alias
+function npx() {
+  local npx_cmd='cmd.exe /c start npx "$@"'
+  for arg in "$@"; do
+    if [[ "$arg" != "--verbose" && ("$arg" == -* || "$arg" == --*) ]]; then
+      local npx_cmd='cmd.exe /c npx "$@"'
+      break
+    fi
+  done
+
+  if [[ "$PWD" == "/mnt/"* ]]; then
+    eval $npx_cmd
+  else
+    echo "${BOLD}${RED}Please execute this command inside Windows directory!"
+  fi
+}
+
 #######################################################################
 
 ### WSL Network Aliases

@@ -1080,6 +1080,11 @@ function wub {
   open_win_app $WUB_PATH Wub_x64
 }
 
+# this function to open ventoy
+function ventoy {
+  open_win_app $VENTOY_PATH Ventoy2Disk
+}
+
 # this function to open tor browser
 function torb {
   open_win_app $TOR_PATH firefox
@@ -1407,12 +1412,18 @@ function flg {
   cd /mnt/c
 
   if [[ "$1" == "connect" ]]; then
+    # fwd port first
+    fwd on
+
     cmd.exe /c start openvpn-gui \
       --command silent_connection 1
 
     cmd.exe /c start openvpn-gui \
       --command connect flagyard
   elif [[ "$1" == "disconnect" ]]; then
+    # stop forwarding ports
+    fwd off
+
     cmd.exe /c start openvpn-gui \
       --command disconnect flagyard
   elif [[ "$1" == "status" ]]; then

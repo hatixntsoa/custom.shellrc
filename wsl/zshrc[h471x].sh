@@ -1085,6 +1085,11 @@ function ventoy {
   open_win_app $VENTOY_PATH Ventoy2Disk
 }
 
+# this function to open obsidian
+function obsd {
+  open_win_app $OBSIDIAN_PATH Obsidian
+}
+
 # this function to open tor browser
 function torb {
   open_win_app $TOR_PATH firefox

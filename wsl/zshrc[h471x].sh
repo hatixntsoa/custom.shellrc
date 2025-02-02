@@ -1452,6 +1452,9 @@ function flg {
 # this alias to open chatGpt app
 alias gpt="open_chrome_app chatgpt.com ChatGPT"
 
+# this alias to open DeepSeek App
+alias dpsk="open_brave_app chat.deepseek.com DeepSeek"
+
 # this alias to open LinkedIn WebApp
 alias lnk="open_link https://linkedin.com/feed"
 

@@ -862,6 +862,19 @@ alias dtp="op ~/Desktop"
 # this alias to access ENI directory
 alias eni="op $ENI_PATH"
 
+# this alias to access the ENI time schedule
+alias edt="edt"
+
+# this function for edt alias
+function edt(){
+  cd $EDT_PATH
+
+  local recent_file=$(ls -t . | head -n1)
+  explorer.exe $recent_file
+
+  cd - &>/dev/null
+}
+
 # this alias to open the Dev directory
 alias dev="op $DEV_PATH"
 

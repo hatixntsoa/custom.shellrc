@@ -892,6 +892,23 @@ alias pc="c && br 2 && neofetch --source $CUSTOM_NEOFETCH"
 
 ### WSL Programs
 
+# CREATED : 10-24-2024 18:57
+# Checks if the current directory
+# is a Windows directory.
+# Exists if not,
+# otherwise executes the script.
+# This function is a big deal
+# for me since I will refactor
+# tons of codes with it
+function check_win(){
+  if [[ "$PWD" != "/mnt/"* && ! -L "$PWD" ]]; then
+    echo "${BOLD}${RED}Please execute this command inside Windows (/mnt/*) directory!"
+    # exit the script
+    return 1
+  fi
+  return 0
+}
+
 # CREATED : 10-24-2024 19:19
 # this alias to forcefully
 # run a windows command inside
@@ -1003,6 +1020,38 @@ function vm {
 #   # command integration for WSL2
 #   $DOCKER_DESKTOP_PATH/resources/bin/docker "$@"
 # }
+
+# this alias to run rustc
+alias rustc="check_win && rustc"
+
+# this function for rustc alias
+function rustc(){
+  cmd.exe /c rustc $@
+}
+
+# this alias to run cargo
+alias cargo="check_win && cargo"
+
+# this function for cargo alias
+function cargo(){
+  cmd.exe /c cargo $@
+}
+
+# this alias to use windows nslookup
+alias nslookup="nslookup"
+
+# this function for nslookup alias
+function nslookup(){
+  force_run cmd.exe /c nslookup "$@"
+}
+
+# this alias to use windows arp
+alias arp="arp"
+
+# this function for arp alias
+function arp(){
+  force_run cmd.exe /c arp "$@"
+}
 
 # this function to open virtual box
 function vbox {

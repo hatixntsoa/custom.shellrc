@@ -1384,13 +1384,12 @@ function open_link {
 
 #######################################################################
 
-### PWAs Aliases
+### CTF PLatfomrs Aliases
 
-# this alias to recharge the router
-alias rtr='open_chrome_app "www.airtel.mg" "Airtel Router"'
+# import config file command
+# cmd.exe /c start openvpn-gui --command import "$(wslpath -w $PWD)\htb_h471x.ovpn"
 
-# this alias to view the HTX_AP dashboard
-alias htx="open_chrome_app 192.168.8.1 HTX_AP"
+
 
 # this alias to open Try Hack Me Web app
 alias thm="thm"
@@ -1431,6 +1430,14 @@ function thm {
 
   # get back to the old directory
   cd $dest
+}
+
+# this alias to open HackTheBox
+alias htb="htb"
+
+# this function for htb alias
+function htb {
+  open_brave_app hackthebox.com HackTheBox
 }
 
 # this alias to open Pwned Labs Web App
@@ -1511,11 +1518,30 @@ function flg {
   cd $dest
 }
 
+#######################################################################
+
+### PWAs Aliases
+
+# this alias to recharge the router
+alias rtr='open_chrome_app "www.airtel.mg" "Airtel Router"'
+
+# this alias to view the HTX_AP dashboard
+alias htx="open_chrome_app 192.168.8.1 HTX_AP"
+
 # this alias to open chatGpt app
 alias gpt="open_chrome_app chatgpt.com ChatGPT"
 
 # this alias to open DeepSeek App
-alias dpsk="open_brave_app chat.deepseek.com DeepSeek"
+alias dpsk="dpsk"
+
+# this function for dpsk alias
+function dpsk {
+  if [[ "$1" == "api" ]]; then
+    open_link https://platform.deepseek.com
+  else
+    open_brave_app chat.deepseek.com DeepSeek
+  fi
+}
 
 # this alias to open LinkedIn WebApp
 alias lnk="open_link https://linkedin.com/feed"

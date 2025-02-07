@@ -1372,14 +1372,26 @@ function open_brave_app {
 # this function to open a link as PWA window
 function open_link {
   local app_link="$1"
+  local browser="${2:-$BROWSER}"
+
   old_path="$PWD"
   cd /mnt/c
 
-  cmd.exe /c start brave.exe \
+  cmd.exe /c start $browser \
     --profile-directory=Default \
     --app=$app_link
 
   cd $old_path
+}
+
+# this function to open link using brave
+function brave {
+  open_link "$*" brave.exe
+}
+
+# this function to open link using chrome
+function chrome {
+  open_link "$*" chrome.exe
 }
 
 #######################################################################
@@ -1388,8 +1400,6 @@ function open_link {
 
 # import config file command
 # cmd.exe /c start openvpn-gui --command import "$(wslpath -w $PWD)\htb_h471x.ovpn"
-
-
 
 # this alias to open Try Hack Me Web app
 alias thm="thm"

@@ -913,16 +913,25 @@ function check_win(){
 # this alias to forcefully
 # run a windows command inside
 # WSL by temporarely move to C drive
-alias force_run="force_run"
+alias win_run="win_run"
 
-# this function for force_run alias
-function force_run(){
+# this function for win_run alias
+function win_run(){
   if [[ "$PWD" != "/mnt/"* && ! -L "$PWD" ]]; then
     cd /mnt/c
     eval "$@"
     cd - &>/dev/null
   else
     eval "$@"
+  fi
+}
+
+# this function to check if
+# we are running inside Linux
+function check_lin {
+  if [[ "$DISPLAY" != ":0" ]]; then
+    echo "Sorry, this is not a Linux app !"
+    return 0
   fi
 }
 
@@ -1042,7 +1051,7 @@ alias nslookup="nslookup"
 
 # this function for nslookup alias
 function nslookup(){
-  force_run cmd.exe /c nslookup "$@"
+  win_run cmd.exe /c nslookup "$@"
 }
 
 # this alias to use windows arp
@@ -1050,7 +1059,7 @@ alias arp="arp"
 
 # this function for arp alias
 function arp(){
-  force_run cmd.exe /c arp "$@"
+  win_run cmd.exe /c arp "$@"
 }
 
 # this function to open virtual box
@@ -1060,7 +1069,7 @@ function vbox {
 
 # this function to launch apple music
 function music {
-  force_run cmd.exe /c start AppleMusic.exe
+  win_run cmd.exe /c start AppleMusic.exe
 }
 
 # this function to run bluestacks
@@ -1396,10 +1405,89 @@ function chrome {
 
 #######################################################################
 
-### CTF PLatfomrs Aliases
+### CTF Platfomrs Aliases
 
 # import config file command
 # cmd.exe /c start openvpn-gui --command import "$(wslpath -w $PWD)\htb_h471x.ovpn"
+
+# this function to list
+# available openvpn profiles
+function list_vpn {
+  local ovpn_profiles="$(ls "$OPENVPN_PROFILES_PATH")"
+}
+
+# this function to connect
+# to available openvpn profiles
+function connect_vpn {
+  # first start a silent connection
+  win_run cmd.exe /c start \
+    openvpn-gui \
+    --command silent_connection 1
+
+  # connect to the openvpn profile
+  win_run cmd.exe /c start \
+    openvpn-gui \
+    --command connect "$1"
+}
+
+# this function to interact to
+# the windows openvpn-gui in
+# CLI mode for better usage
+function ovpn {
+  case "$1" in
+    "connect")
+      echo "Connecting to VPN..."
+      local ovpn_profile="$2"
+      connect_vpn "$ovpn_profile"
+      ;;
+    "disconnect")
+      echo "Disconnecting from VPN..."
+      # Add your disconnection logic here
+      ;;
+    "import")
+      echo "Importing VPN configuration..."
+      local ovpn_profile="$2"
+      # Add your import logic here
+      ;;
+    "list")
+      echo "Listing VPN connections..."
+      # Add your listing logic here
+      ;;
+    "check")
+      echo "Checking VPN status..."
+      # Add your check status logic here
+      ;;
+    "exit")
+      echo "Exiting VPN..."
+      # Add exit or cleanup logic here
+      ;;
+    *)
+      echo "Usage: ovpn {connect|disconnect|import|list|check|exit}"
+      ;;
+  esac
+}
+
+# Completion function for the primary commands and profiles
+_ovpn_completion() {
+  local cur prev
+
+  # Get the current word being completed and the previous word
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  # If we're completing the main commands (first argument to ovpn)
+  if [[ $COMP_CWORD -eq 1 ]]; then
+    COMPREPLY=($(compgen -W "connect disconnect import list check exit" -- "$cur"))
+  # If we're completing profiles (only for connect, import, and disconnect commands)
+  elif [[ $COMP_CWORD -eq 2 && ( "$prev" == "connect" || "$prev" == "import" || "$prev" == "disconnect" ) ]]; then
+    local vpn_profiles
+    vpn_profiles=$(ls "$OPENVPN_PROFILES_PATH")
+    COMPREPLY=($(compgen -W "${vpn_profiles}" -- "$cur"))
+  fi
+}
+
+# Bind the completion function to the ovpn command
+complete -F _ovpn_completion ovpn
 
 # this alias to open Try Hack Me Web app
 alias thm="thm"
@@ -1559,6 +1647,9 @@ alias lnk="open_link https://linkedin.com/feed"
 # this alias to open MOCC App
 alias mocc="open_link https://moocs.openenglishprograms.org"
 
+# this alias to get free pdf books
+alias pdf="open_link https://oceanofpdf.com"
+
 # this alias to open Facebook app
 alias fb="open_brave_app facebook.com Facebook"
 
@@ -1659,7 +1750,21 @@ alias pmail="open_brave_app mail.proton.me ProtonMail"
 alias pdrive="open_brave_app drive.proton.me ProtonDrive"
 
 # this alias to open ProtonVPN
-alias pvpn="open_link https://account.proton.me/u/0/vpn"
+alias pvpn="pvpn"
+
+# this function for pvpn alias
+function pvpn {
+  if [[ "$1" == "connect" ]]; then
+    # Check if ProtonVPN is running
+    if win_run cmd.exe /c "tasklist | findstr ProtonVPN.exe" &>/dev/null; then
+      win_run cmd.exe /c "taskkill /IM ProtonVPN.exe /F" &>/dev/null
+    fi
+
+    open_win_app $PROTON_VPN_PATH ProtonVPN.Launcher
+  else
+    open_link 'https://account.proton.me/u/0/vpn'
+  fi
+}
 
 # this alias to open udemy
 alias udemy="open_link https://www.udemy.com"
@@ -1752,6 +1857,35 @@ function gthb {
 #######################################################################
 
 ### WSL Terminal Aliases
+
+# this alias to copy the current
+# directory path in windows format
+alias winpath="check_lin && winpath"
+
+# this function for winpath alias
+function winpath {
+  echo $(wslpath -w $PWD) | clip.exe
+  echo "Path copied to clipboard."
+}
+
+# this alias to copy the current
+# directory path in linux format
+alias path="path"
+
+# this function for path alias
+function path {
+  if [[ "$DISPLAY" == ":0" ]]; then
+    # windows clipboard
+    echo "windows"
+    local clipboard="clip.exe"
+  else
+    echo "linux"
+    local clipboard="xclip"
+  fi
+
+  echo $PWD | $clipboard
+  echo "Path copied to clipboard."
+}
 
 # this alias to switch to windows terminal
 alias wds="wds"

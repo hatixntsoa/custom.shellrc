@@ -1538,6 +1538,9 @@ function htb {
   open_brave_app hackthebox.com HackTheBox
 }
 
+# this alias to open hackmyvm
+alias hmv="brave https://hackmyvm.eu"
+
 # this alias to open Pwned Labs Web App
 # AWS Learning Platform
 alias pwn="pwn"

@@ -1644,6 +1644,11 @@ function dpsk {
   fi
 }
 
+# this function to run ollama
+function ollama {
+  win_run cmd.exe /c ollama "$@"
+}
+
 # this alias to open LinkedIn WebApp
 alias lnk="open_link https://linkedin.com/feed"
 

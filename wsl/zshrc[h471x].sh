@@ -1627,7 +1627,7 @@ function flg {
 alias rtr='open_chrome_app "www.airtel.mg" "Airtel Router"'
 
 # this alias to view the HTX_AP dashboard
-alias htx="open_chrome_app 192.168.8.1 HTX_AP"
+alias htx="brave http://192.168.8.1"
 
 # this alias to open chatGpt app
 alias gpt="open_chrome_app chatgpt.com ChatGPT"
@@ -1651,6 +1651,10 @@ function ollama {
 
 # this alias to open LinkedIn WebApp
 alias lnk="open_link https://linkedin.com/feed"
+
+# this alias to open BrightTalk,
+# a free webinar site (free conferences)
+alias btlk="brave https://www.brighttalk.com"
 
 # this alias to open MOCC App
 alias mocc="open_link https://moocs.openenglishprograms.org"

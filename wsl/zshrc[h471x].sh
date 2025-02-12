@@ -2077,6 +2077,17 @@ function winhost {
 # this alias to edit Winux Hosts
 alias hosts="nvmr /etc/hosts"
 
+# this function to scan windows network
+function scan {
+  output=$(win_run cmd.exe /c "netsh interface ip show neighbors" | grep Stale | awk '{print $1}')
+
+  echo " Connected Devices : $(echo "$output" | wc -l)"
+
+  echo "$output" | while read -r ip; do
+    echo " - $ip"
+  done
+}
+
 # this alias to forward WSL2 network to Windows
 alias fwd="fwd"
 

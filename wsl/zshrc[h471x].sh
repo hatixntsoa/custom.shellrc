@@ -147,6 +147,7 @@ source ~/.shellrc_env/env/shortcuts.sh
 source ~/.shellrc_env/env/screen.sh
 source ~/.shellrc_env/env/paths.sh
 source ~/.shellrc_env/env/pwa.sh
+source ~/.shellrc_env/env/api.sh
 
 #######################################################################
 

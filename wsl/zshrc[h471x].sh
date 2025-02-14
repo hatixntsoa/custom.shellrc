@@ -1660,6 +1660,15 @@ alias btlk="brave https://www.brighttalk.com"
 # this alias to open MOCC App
 alias mocc="open_link https://moocs.openenglishprograms.org"
 
+# this alias to open hackerrank
+alias hcrk="brave https://hackerrank.com"
+
+# this alias to open codingame
+alias cgame="brave https://www.codingame.com/home"
+
+# this alias to open bugcrowd
+alias bug="brave https://bugcrowd.com/dashboard"
+
 # this alias to get free pdf books
 alias pdf="open_link https://oceanofpdf.com"
 
@@ -1730,7 +1739,9 @@ alias pico="open_link https://www.picoctf.org"
 alias thn="open_brave_app thehackernew.com 'The Hacker News'"
 
 # this alias to open Cisco Networking Academy
-alias cna="open_chrome_app www.netacad.com 'Cisco Networking Academy'"
+# alias cna="open_chrome_app www.netacad.com 'Cisco Networking Academy'"
+alias cna="brave https://www.netacad.com"
+
 
 # this alias to open YouTube Web App
 alias ytb="open_brave_app youtube.com YouTube"
@@ -1742,7 +1753,7 @@ alias rdt="open_brave_app reddit.com Reddit"
 alias cybr="open_chrome_app cybr.com Cybr"
 
 # this alias to open HackerRank
-alias hcrk="open_chrome_app hackerrank.com HackerRank"
+# alias hcrk="open_chrome_app hackerrank.com HackerRank"
 
 # this alias to open reverse shell generator
 alias ipinfo="open_chrome_app ipinfo.io IPInfo"

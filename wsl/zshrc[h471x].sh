@@ -572,7 +572,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -1628,7 +1628,7 @@ function flg {
 alias rtr='open_chrome_app "www.airtel.mg" "Airtel Router"'
 
 # this alias to view the HTX_AP dashboard
-alias htx="brave http://192.168.8.1"
+alias htx="open_chrome_app 192.168.8.1 HTX_AP"
 
 # this alias to open chatGpt app
 alias gpt="open_chrome_app chatgpt.com ChatGPT"

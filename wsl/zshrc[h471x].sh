@@ -1431,6 +1431,24 @@ function connect_vpn {
     --command connect "$1"
 }
 
+# this function to disconnect
+# from openvpn profiles
+function disconnect_vpn {
+  # disconnect from the openvpn profile
+  win_run cmd.exe /c start \
+    openvpn-gui \
+    --command disconnect "$1"
+}
+
+# this function to import
+# openvpn profiles
+function import_vpn {
+  # disconnect from the openvpn profile
+  win_run cmd.exe /c start \
+    openvpn-gui \
+    --command disconnect "$1"
+}
+
 # this function to interact to
 # the windows openvpn-gui in
 # CLI mode for better usage
@@ -1443,12 +1461,13 @@ function ovpn {
       ;;
     "disconnect")
       echo "Disconnecting from VPN..."
-      # Add your disconnection logic here
+      local ovpn_profile="$2"
+      disconnect_vpn "$ovpn_profile"
       ;;
     "import")
       echo "Importing VPN configuration..."
       local ovpn_profile="$2"
-      # Add your import logic here
+      import_vpn "$ovpn_profile"
       ;;
     "list")
       echo "Listing VPN connections..."

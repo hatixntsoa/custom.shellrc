@@ -1470,8 +1470,12 @@ function ovpn {
       import_vpn "$ovpn_profile"
       ;;
     "list")
-      echo "Listing VPN connections..."
-      # Add your listing logic here
+      echo "Available VPN connections..."
+      while IFS= read -r profile; do
+        echo "- $profile"
+      done < <(
+        ls "$OPENVPN_PROFILES_PATH"
+      )
       ;;
     "check")
       echo "Checking VPN status..."

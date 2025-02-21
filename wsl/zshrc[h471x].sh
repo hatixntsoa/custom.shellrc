@@ -1483,7 +1483,7 @@ function ovpn {
       ;;
     "exit")
       echo "Exiting VPN..."
-      # Add exit or cleanup logic here
+      win_run cmd.exe /c start openvpn-gui --command exit
       ;;
     *)
       echo "Usage: ovpn {connect|disconnect|import|list|check|exit}"

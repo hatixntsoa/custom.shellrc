@@ -1522,20 +1522,9 @@ function thm {
   cd /mnt/c
 
   if [[ "$1" == "connect" ]]; then
-    # fwd port first
-    fwd on
-
-    cmd.exe /c start openvpn-gui \
-      --command silent_connection 1
-
-    cmd.exe /c start openvpn-gui \
-      --command connect thm_h471x
+      ovpn connect thm_h471x
   elif [[ "$1" == "disconnect" ]]; then
-    # stop forwarding ports
-    fwd off
-
-    cmd.exe /c start openvpn-gui \
-      --command disconnect thm_h471x
+      ovpn disconnect thm_h471x
   elif [[ "$1" == "status" ]]; then
     local check="ping -c 1 -W 5 "
     local check_message="Checking TryHackMe Connectivity ..."
@@ -1575,14 +1564,9 @@ function pwn {
   cd /mnt/c
 
   if [[ "$1" == "connect" ]]; then
-    cmd.exe /c start openvpn-gui \
-      --command silent_connection 1
-
-    cmd.exe /c start openvpn-gui \
-      --command connect pwndlb_h471x
+      ovpn connect pwndlb_h471x
   elif [[ "$1" == "disconnect" ]]; then
-    cmd.exe /c start openvpn-gui \
-      --command disconnect pwndlb_h471x
+      ovpn disconnect pwndlb_h471x
   elif [[ "$1" == "status" ]]; then
     local check="ping -c 1 -W 5 "
     local check_message="Checking Pwned Labs Connectivity ..."
@@ -1611,20 +1595,9 @@ function flg {
   cd /mnt/c
 
   if [[ "$1" == "connect" ]]; then
-    # fwd port first
-    fwd on
-
-    cmd.exe /c start openvpn-gui \
-      --command silent_connection 1
-
-    cmd.exe /c start openvpn-gui \
-      --command connect flagyard
+    ovpn connect flagyard
   elif [[ "$1" == "disconnect" ]]; then
-    # stop forwarding ports
-    fwd off
-
-    cmd.exe /c start openvpn-gui \
-      --command disconnect flagyard
+    ovpn disconnect flagyard
   elif [[ "$1" == "status" ]]; then
     local check="ping -c 1 -W 5 "
     local check_message="Checking FlagYard Connectivity ..."

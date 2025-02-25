@@ -320,17 +320,17 @@ function flc {
   fi
 }
 
-kill-line() {
-  if [[ $BUFFER == "" ]]; then
-    zle backward-kill-line
-  else
-    zle kill-whole-line
-  fi
-}
-
-zle -N kill-line
-bindkey "11" kill-line
-bindkey "²²" kill-line
+# kill-line() {
+#   if [[ $BUFFER == "" ]]; then
+#     zle backward-kill-line
+#   else
+#     zle kill-whole-line
+#   fi
+# }
+#
+# zle -N kill-line
+# # bindkey "]]" kill-line
+# bindkey "²²" kill-line
 
 # this alias to clear
 alias c="clear"
@@ -1177,14 +1177,48 @@ function canva {
   open_win_app $CANVA_PATH Canva
 }
 
-# this function to launch usbipd
-function usbipd {
-  # run_win_app $USBIPD_PATH usbipd "$@"
-  old_path="$PWD"
-  cd /mnt/c
-  cmd.exe /c usbipd "$@"
-  cd $old_path
+# Function to launch usbipd
+function usb {
+  local sudo=""
+
+  case "$1" in
+    attach|detach|bind|unbind) sudo="sudo" ;;
+  esac
+
+  if [[ "$1" == "attach" && "$2" =~ ^[0-9]-[0-9]+$ ]]; then
+    # For 'attach', add '--wsl --busid'
+    win_run cmd.exe /c $sudo usbipd attach --wsl --busid "$2"
+  elif [[ "$1" =~ ^(detach|bind|unbind)$ && "$2" =~ ^[0-9]-[0-9]+$ ]]; then
+    # For other commands, add '--busid'
+    win_run cmd.exe /c $sudo usbipd "$1" --busid "$2"
+  else
+    # Default behavior if arguments don't match expectations
+    win_run cmd.exe /c $sudo usbipd "$@"
+  fi
 }
+
+_usb_completion() {
+  local cur prev opts busids
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  # Define valid subcommands
+  opts="attach detach bind unbind list"
+
+  # Get BUSIDs from `usbipd list` output
+  busids=$(win_run cmd.exe /c usbipd list | awk '/^[0-9]-[0-9]+/ {print $1}')
+
+  if [[ $COMP_CWORD -eq 1 ]]; then
+    # Complete the main command options
+    COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
+  elif [[ "$prev" =~ ^(attach|detach|bind|unbind)$ ]]; then
+    # Complete with BUSID when subcommand is attach/detach/bind/unbind
+    COMPREPLY=( $(compgen -W "$busids" -- "$cur") )
+  fi
+}
+
+# Register the completion function for 'usb'
+complete -F _usb_completion usb
 
 # this alias to start screen recording
 # using windows OBS Studio

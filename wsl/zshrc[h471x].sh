@@ -1570,7 +1570,8 @@ function thm {
       echo " ${RED}Disconnected ${RESET}from TryHackMe OpenVPN"
     fi
   else
-    open_brave_app tryhackme.com TryHackMe
+    # open_brave_app tryhackme.com TryHackMe
+    brave https://tryhackme.com
   fi
 
   # get back to the old directory

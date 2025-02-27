@@ -1186,13 +1186,10 @@ function usb {
   esac
 
   if [[ "$1" == "attach" && "$2" =~ ^[0-9]-[0-9]+$ ]]; then
-    # For 'attach', add '--wsl --busid'
     win_run cmd.exe /c $sudo usbipd attach --wsl --busid "$2"
   elif [[ "$1" =~ ^(detach|bind|unbind)$ && "$2" =~ ^[0-9]-[0-9]+$ ]]; then
-    # For other commands, add '--busid'
     win_run cmd.exe /c $sudo usbipd "$1" --busid "$2"
   else
-    # Default behavior if arguments don't match expectations
     win_run cmd.exe /c $sudo usbipd "$@"
   fi
 }

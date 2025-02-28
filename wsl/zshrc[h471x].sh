@@ -1927,11 +1927,8 @@ alias path="path"
 # this function for path alias
 function path {
   if [[ "$DISPLAY" == ":0" ]]; then
-    # windows clipboard
-    echo "windows"
     local clipboard="clip.exe"
   else
-    echo "linux"
     local clipboard="xclip"
   fi
 

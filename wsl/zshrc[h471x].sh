@@ -572,7 +572,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -1006,6 +1006,14 @@ function vm {
 # twitter link https://t.co/OSGeowHZ7G
 #
 # window terminal new tab : cmd.exe /c wt -w 0 nt
+
+alias docker-start="docker-start"
+
+
+
+function docker-start {
+  open_win_app $DOCKER_DESKTOP_PATH Docker\ Desktop
+}
 
 # this function to run docker
 # function docker {

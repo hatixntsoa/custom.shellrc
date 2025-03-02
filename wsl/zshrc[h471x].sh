@@ -1015,30 +1015,6 @@ function docker-start {
   open_win_app $DOCKER_DESKTOP_PATH Docker\ Desktop
 }
 
-# this function to run docker
-# function docker {
-#   # Check if Docker Service is not running
-#   if ! cmd.exe /c "tasklist | findstr Docker" &>/dev/null; then
-#     echo "didn't find docker"
-#     return 0
-#     # # Cannot start docker inside kali-win-kex
-#     # if [[ "$DISPLAY" != ":0" ]]; then
-#     #   echo "Please start docker service inside Windows Terminal first !"
-#     #   return 0
-#     # fi
-#     #
-#     # # Debugging message
-#     # echo "Starting docker desktop ..."
-#     #
-#     # # Start the docker service
-#     # open_win_app $DOCKER_DESKTOP_PATH "Docker Desktop"
-#   fi
-#
-#   # run the default docker
-#   # command integration for WSL2
-#   $DOCKER_DESKTOP_PATH/resources/bin/docker "$@"
-# }
-
 # this alias to run rustc
 alias rustc="check_win && rustc"
 

@@ -913,7 +913,7 @@ function check_win(){
 # CREATED : 10-24-2024 19:19
 # this alias to forcefully
 # run a windows command inside
-# WSL by temporarely move to C drive
+# WSL by temporarely moving to C drive
 alias win_run="win_run"
 
 # this function for win_run alias

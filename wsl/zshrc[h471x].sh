@@ -562,7 +562,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -2030,11 +2030,11 @@ function check_input {
   echo "$input"
 }
 
-# this alias to add host
-alias add_host="allow_sudo && add_host"
+# this alias to add new host
+alias new_host="allow_sudo && new_host"
 
-# Function to add hosts interactively
-function add_host {
+# this function for new_host alias
+function new_host {
   local host
   local redirection
   local description
@@ -2059,13 +2059,95 @@ function add_host {
   # Add to windows host if we use
   # windows terminal
   if [[ "$DISPLAY" == ":0" ]]; then
-    powershell.exe -Command "Start-Process -FilePath 'powershell.exe' -ArgumentList \"-Command Add-Content -Path 'C:\\Windows\\System32\\drivers\\etc\\hosts' -Value '\`n# $description\`n$host $redirection'\" -Verb RunAs -WindowStyle Hidden"
+    powershell.exe -Command "Start-Process powershell \
+      -Verb RunAs -WindowStyle Hidden \
+      -ArgumentList \"-Command Add-Content -Path '$WINDOWS_ETC_HOSTS' \
+      -Value '\`n# $description\`n$host $redirection'\""
   fi
 
   # Add to WSL2 host
   sudo echo -e "\n# $description\n$host $redirection" \
     | sudo tee -a /etc/hosts > /dev/null
 }
+
+# this alias to add host
+alias add_host="allow_sudo && add_host"
+
+# Function to add hosts interactively
+function add_host {
+  if [[ "$#" -eq 0 ]]; then
+    echo "Please specify the entry point to add!"
+    return 0
+  fi
+
+  local host="$1"
+  local ip=$(awk -v h="$host" '$2 == h {print $1}' /etc/hosts)
+  local redirection
+
+  # display informations
+  echo " Source Host : $ip"
+  echo " Redirection : $host"
+
+  echo -ne " Additional  : "
+  read redirection
+
+  # Add a new entry
+  sudo sed -i "/$host/s/$/ $redirection/" /etc/hosts
+
+  # Append to windows /etc/hosts as well
+  if [[ "$DISPLAY" == ":0" ]]; then
+    powershell.exe -Command "Start-Process powershell \
+      -Verb RunAs -WindowStyle Hidden \
+      -ArgumentList \"-Command \$hostEntry = Get-Content -Path '$WINDOWS_ETC_HOSTS' | Select-String -Pattern '$host';
+      if (\$hostEntry) {
+          \$hostEntry -replace '(\\s+\\S+\\s*)$', ' $redirection' | Set-Content -Path '$WINDOWS_ETC_HOSTS';
+      } else {
+          Add-Content -Path '$WINDOWS_ETC_HOSTS' -Value '\n# $description\n$host $redirection';
+      }
+      \""
+  fi
+}
+
+# complete add_host for host adding
+compctl -K _host_completion add_host
+
+# this alias to edit hosts
+alias edit_host="allow_sudo && edit_host"
+
+# this function for edit_host alias
+function edit_host {
+  local host="$1"
+  local ip=$(awk -v h="$host" '$2 == h {print $1}' /etc/hosts)
+  local new_ip
+
+  echo " Source Host  : $host"
+  echo " Redirection  : $ip"
+
+  # Get the new IP
+  echo -ne " Enter New IP : "
+  read new_ip
+
+  # Replace the old IP with the new IP
+  sudo sed -i "s/^$ip/$new_ip/" /etc/hosts
+
+  # Replace host inside windows
+  # if we use windows terminal
+  if [[ "$DISPLAY" == ":0" ]]; then
+    powershell.exe -Command "Start-Process powershell \
+      -Verb RunAs -WindowStyle Hidden \
+      -ArgumentList \"-Command (Get-Content '$WINDOWS_ETC_HOSTS') \
+      -replace '^$ip', '$new_ip' | Set-Content '$WINDOWS_ETC_HOSTS'\""
+  fi
+}
+
+# complete the hosts functions
+# with /etc/hosts entries
+_host_completion() {
+  reply=($(awk '!/^#/ && NF {print $2}' /etc/hosts))
+}
+
+# autocomplete edit_host
+compctl -K _host_completion edit_host
 
 # this alias to edit windows host
 alias winhost="winhost"

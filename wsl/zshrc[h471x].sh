@@ -2095,17 +2095,17 @@ function add_host {
   sudo sed -i "/$host/s/$/ $redirection/" /etc/hosts
 
   # Append to windows /etc/hosts as well
-  if [[ "$DISPLAY" == ":0" ]]; then
-    powershell.exe -Command "Start-Process powershell \
-      -Verb RunAs -WindowStyle Hidden \
-      -ArgumentList \"-Command \$hostEntry = Get-Content -Path '$WINDOWS_ETC_HOSTS' | Select-String -Pattern '$host';
-      if (\$hostEntry) {
-          \$hostEntry -replace '(\\s+\\S+\\s*)$', ' $redirection' | Set-Content -Path '$WINDOWS_ETC_HOSTS';
-      } else {
-          Add-Content -Path '$WINDOWS_ETC_HOSTS' -Value '\n# $description\n$host $redirection';
-      }
-      \""
-  fi
+  # if [[ "$DISPLAY" == ":0" ]]; then
+  #   powershell.exe -Command "Start-Process powershell \
+  #     -Verb RunAs -WindowStyle Hidden \
+  #     -ArgumentList \"-Command \$hostEntry = Get-Content -Path '$WINDOWS_ETC_HOSTS' | Select-String -Pattern '$host';
+  #     if (\$hostEntry) {
+  #         \$hostEntry -replace '(\\s+\\S+\\s*)$', ' $redirection' | Set-Content -Path '$WINDOWS_ETC_HOSTS';
+  #     } else {
+  #         Add-Content -Path '$WINDOWS_ETC_HOSTS' -Value '\n# $description\n$host $redirection';
+  #     }
+  #     \""
+  # fi
 }
 
 # complete add_host for host adding

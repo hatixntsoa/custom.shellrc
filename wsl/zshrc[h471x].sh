@@ -554,6 +554,9 @@ function cvg {
   show_all $item;
 }
 
+# this alias to use batcat as bat
+alias bat="batcat"
+
 # this alias to view inside a file
 alias vf="vf"
 
@@ -1127,6 +1130,11 @@ function wub {
 # this function to open ventoy
 function ventoy {
   open_win_app $VENTOY_PATH Ventoy2Disk
+}
+
+# this function to open rufus
+function rufus {
+  open_win_app $RUFUS_PATH rufus-4.6p
 }
 
 # this function to open obsidian
@@ -2094,18 +2102,11 @@ function add_host {
   # Add a new entry
   sudo sed -i "/$host/s/$/ $redirection/" /etc/hosts
 
-  # Append to windows /etc/hosts as well
-  # if [[ "$DISPLAY" == ":0" ]]; then
-  #   powershell.exe -Command "Start-Process powershell \
-  #     -Verb RunAs -WindowStyle Hidden \
-  #     -ArgumentList \"-Command \$hostEntry = Get-Content -Path '$WINDOWS_ETC_HOSTS' | Select-String -Pattern '$host';
-  #     if (\$hostEntry) {
-  #         \$hostEntry -replace '(\\s+\\S+\\s*)$', ' $redirection' | Set-Content -Path '$WINDOWS_ETC_HOSTS';
-  #     } else {
-  #         Add-Content -Path '$WINDOWS_ETC_HOSTS' -Value '\n# $description\n$host $redirection';
-  #     }
-  #     \""
-  # fi
+  # take the entire line
+  # then replace it with
+  # the same line but
+  # add the extra redirection,
+  # solved
 }
 
 # complete add_host for host adding

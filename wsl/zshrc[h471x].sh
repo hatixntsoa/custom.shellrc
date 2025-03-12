@@ -2116,7 +2116,9 @@ function add_host {
   # use windows terminal
   if [[ "$DISPLAY" == ":0" ]]; then
     win_run cmd.exe /c "sudo wsl \
-      sed -i '/'"$host"'/s/$/ '"$redirection"'/' $WINDOWS_HOSTS"
+      sed -i '/'"$host"'/s/$/ '"$redirection"'/' \
+      $WINDOWS_HOSTS\
+    "
   fi
 }
 
@@ -2145,11 +2147,10 @@ function edit_host {
   # Replace host inside windows
   # if we use windows terminal
   if [[ "$DISPLAY" == ":0" ]]; then
-    win_run cmd.exe /c "\
-      sudo wsl \
+    win_run cmd.exe /c "sudo wsl \
       sed -i 's/^'"$ip"'/'"$new_ip"'/g' \
       $WINDOWS_HOSTS\
-      "
+    "
   fi
 }
 

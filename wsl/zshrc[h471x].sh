@@ -2111,11 +2111,13 @@ function add_host {
   # Add a new entry
   sudo sed -i "/$host/s/$/ $redirection/" /etc/hosts
 
-  # take the entire line
-  # then replace it with
-  # the same line but
-  # add the extra redirection,
-  # solved
+  # Add new host entry inside
+  # windows hosts if we
+  # use windows terminal
+  if [[ "$DISPLAY" == ":0" ]]; then
+    win_run cmd.exe /c "sudo wsl \
+      sed -i '/'"$host"'/s/$/ '"$redirection"'/' $WINDOWS_HOSTS"
+  fi
 }
 
 # complete add_host for host adding
@@ -2143,10 +2145,11 @@ function edit_host {
   # Replace host inside windows
   # if we use windows terminal
   if [[ "$DISPLAY" == ":0" ]]; then
-    powershell.exe -Command "Start-Process powershell \
-      -Verb RunAs -WindowStyle Hidden \
-      -ArgumentList \"-Command (Get-Content '$WINDOWS_ETC_HOSTS') \
-      -replace '^$ip', '$new_ip' | Set-Content '$WINDOWS_ETC_HOSTS'\""
+    win_run cmd.exe /c "\
+      sudo wsl \
+      sed -i 's/^'"$ip"'/'"$new_ip"'/g' \
+      $WINDOWS_HOSTS\
+      "
   fi
 }
 

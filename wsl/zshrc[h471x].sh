@@ -2167,16 +2167,20 @@ compctl -K _host_completion edit_host
 alias winhost="winhost"
 
 # this function for winhost alias
+# IMPROVED : 03-13-2025 04:00
+# Run WSL as administrator
 function winhost {
   if [[ "$DISPLAY" != ":0" ]]; then
     echo "Sorry, this is not a Linux app !"
     return 0
   fi
 
-  old_path="$PWD"
-  cd "$(dirname "$(wslpath "$WINDOWS_HOSTS_PATH")")"
-  cmd.exe /c sudo --inline notepad "$WINDOWS_HOSTS_PATH"
-  cd $old_path
+  # old_path="$PWD"
+  # cd "$(dirname "$(wslpath "$WINDOWS_HOSTS_PATH")")"
+  # cmd.exe /c sudo --inline notepad "$WINDOWS_HOSTS_PATH"
+  # cd $old_path
+
+  win_run cmd.exe /c "sudo wsl nvim $WINDOWS_HOSTS"
 }
 
 # this alias to edit Winux Hosts

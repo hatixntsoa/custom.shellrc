@@ -2125,7 +2125,7 @@ function add_host {
 # complete add_host for host adding
 compctl -K _host_completion add_host
 
-# this alias to edit hosts
+# this alias to edit hosts IP
 alias edit_host="allow_sudo && edit_host"
 
 # this function for edit_host alias
@@ -2134,8 +2134,8 @@ function edit_host {
   local ip=$(awk -v h="$host" '$2 == h {print $1}' /etc/hosts)
   local new_ip
 
-  echo " Source Host  : $host"
-  echo " Redirection  : $ip"
+  echo " Redirection  : $host"
+  echo " Source IP    : $ip"
 
   # Get the new IP
   echo -ne " Enter New IP : "
@@ -2154,14 +2154,44 @@ function edit_host {
   fi
 }
 
+# this alias to change hosts
+alias change_host="allow_sudo && change_host"
+
+# this function for change_host alias
+function change_host {
+  local host="$1"
+  local ip=$(awk -v h="$host" '$2 == h {print $1}' /etc/hosts)
+  local new_ip
+
+  echo " Source IP    : $ip"
+  echo " Redirection  : $host"
+
+  # Get the new IP
+  echo -ne " Change Host  : "
+  read new_host
+
+  # Replace the old IP with the new IP
+  sudo sed -i "s/$host/$new_host/g" /etc/hosts
+
+  # Replace host inside windows
+  # if we use windows terminal
+  if [[ "$DISPLAY" == ":0" ]]; then
+    win_run cmd.exe /c "sudo wsl \
+      sed -i 's/^'"$host"'/'"$new_host"'/g' \
+      $WINDOWS_HOSTS\
+    "
+  fi
+}
+
 # complete the hosts functions
 # with /etc/hosts entries
 _host_completion() {
   reply=($(awk '!/^#/ && NF {print $2}' /etc/hosts))
 }
 
-# autocomplete edit_host
+# autocomplete edit_host & change_host
 compctl -K _host_completion edit_host
+compctl -K _host_completion change_host
 
 # this alias to edit windows host
 alias winhost="winhost"
@@ -2180,7 +2210,7 @@ function winhost {
   # cmd.exe /c sudo --inline notepad "$WINDOWS_HOSTS_PATH"
   # cd $old_path
 
-  win_run cmd.exe /c "sudo wsl nvim $WINDOWS_HOSTS"
+  win_run cmd.exe /c "sudo wsl nvim $WINDOWS_HOSTS" && cv
 }
 
 # this alias to edit Winux Hosts

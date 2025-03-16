@@ -559,11 +559,15 @@ alias bat="batcat"
 
 # this to interact with clipboard
 function copy {
-  if [[ "$DISPLAY" == ":0" ]]; then
-    clip.exe
-  else
-    xclip
-  fi
+  local clipboard=$(
+    [[ "$DISPLAY" == ":0" ]] && \
+      echo "clip.exe" || \
+      echo "xclip"
+  )
+
+  [[ "$#" -eq 0 ]] && \
+    $clipboard || \
+    $clipboard < "$1"
 }
 
 # this alias to view inside a file

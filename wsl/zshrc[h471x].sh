@@ -997,21 +997,6 @@ function vm {
   return 0
 }
 
-# Open new tab inside windows terminal
-# cmd.exe /c wt -w 0 nt
-
-# tasklist | findstr "Docker"
-#
-# taskkill /IM "Docker Desktop.exe" /F
-
-# Stop-Process -Name "Docker Desktop" -Force
-
-# cmd.exe /c wt -w 0 nt && sudo openvpn /home/h471x/Desktop/tryhackme_ctf/thm_openvpn/thm_h471x.ovpn
-#
-# twitter link https://t.co/OSGeowHZ7G
-#
-# window terminal new tab : cmd.exe /c wt -w 0 nt
-
 # this alias to start windows docker
 alias docker-start="docker-start"
 
@@ -1408,14 +1393,13 @@ function open_link {
   local app_link="$1"
   local browser="${2:-$BROWSER}"
 
-  old_path="$PWD"
-  cd /mnt/c
+  # Ensure the link starts with HTTP or HTTPS
+  [[ "$app_link" =~ ^https?:// ]] \
+    || app_link="https://$app_link"
 
-  cmd.exe /c start $browser \
+  win_run cmd.exe /c start $browser \
     --profile-directory=Default \
     --app=$app_link
-
-  cd $old_path
 }
 
 # this function to open link using brave
@@ -1431,9 +1415,6 @@ function chrome {
 #######################################################################
 
 ### CTF Platfomrs Aliases
-
-# import config file command
-# cmd.exe /c start openvpn-gui --command import "$(wslpath -w $PWD)\htb_h471x.ovpn"
 
 # this function to list
 # available openvpn profiles
@@ -1763,7 +1744,6 @@ alias thn="open_brave_app thehackernew.com 'The Hacker News'"
 # alias cna="open_chrome_app www.netacad.com 'Cisco Networking Academy'"
 alias cna="brave https://www.netacad.com"
 
-
 # this alias to open YouTube Web App
 alias ytb="open_brave_app youtube.com YouTube"
 
@@ -1774,7 +1754,10 @@ alias rdt="open_brave_app reddit.com Reddit"
 alias cybr="open_chrome_app cybr.com Cybr"
 
 # this alias to open HackerRank
-# alias hcrk="open_chrome_app hackerrank.com HackerRank"
+alias hcrk="brave https://hackerrank.com"
+
+# this alias to open LeetCode
+alias leet="brave https://leetcode.com"
 
 # this alias to open reverse shell generator
 alias ipinfo="open_chrome_app ipinfo.io IPInfo"
@@ -1967,68 +1950,6 @@ function cmd {
   powershell.exe -command "Start-Process cmd -Verb RunAs";
   x;
 }
-
-# # Alias to call the windows npm
-# alias npm="npm"
-#
-# # Function for npm alias
-# function npm() {
-#   local npm_cmd='cmd.exe /c npm "$@"'
-#
-#   # loop through 3 arguments
-#   # to get the script name
-#   # and store them into an array
-#   local arg_count=3
-#   local args=()
-#
-#   # Loop through all arguments
-#   for ((i = 1; i <= arg_count; i++)); do
-#     args+="${(@)@:$i:1}"
-#   done
-#
-#   if [[ "${args[1]}" == "install" && "${args[2]}" == "-g" ]]; then
-#     # Retain only letters (a-z, A-Z) and dashes (-)
-#     # get the name of the package to directly
-#     # associate it to a new alias after installation
-#     local package_name=$(echo "${args[3]}" | sed 's/[^a-zA-Z-]//g')
-#   elif [[ ("$arg" != "--verbose" && "$arg" != "-g") && ("$arg" == -* || "$arg" == --*) ]]; then
-#     npm_cmd='cmd.exe /c npm "$@"'
-#   fi
-#
-#   # only run inside windows directory
-#   if [[ "$PWD" == "/mnt/"* ]]; then
-#
-#     # install alias only if we install
-#     # an npm script globally
-#     if [[ -n "$package_name" ]]; then
-#       install_alias $package_name
-#     else
-#       eval "$npm_cmd"
-#     fi
-#   else
-#     echo "${BOLD}${RED}Please execute this command inside Windows directory!"
-#   fi
-# }
-#
-# # Alias to call the windows npx
-# alias npx="npx"
-#
-# # Function for npx alias
-# function npx() {
-#   local npx_cmd='cmd.exe /c start npx "$@"'
-#   for arg in "$@"; do
-#     if [[ "$arg" != "--verbose" && ("$arg" == -* || "$arg" == --*) ]]; then
-#       local npx_cmd='cmd.exe /c npx "$@"'
-#       break
-#     fi
-#   done
-#
-#   if [[ "$PWD" == "/mnt/"* ]]; then
-#     eval $npx_cmd
-#   else
-#     echo "${BOLD}${RED}Please execute this command inside Windows directory!"
-#   fi
-# }
 
 #######################################################################
 
@@ -2729,64 +2650,6 @@ function rdf {
   cv;
 }
 
-# this alias to count the number of file/directory
-# inside a directory
-# alias dc="dc"
-
-# #this function for dc alias
-# function dc {
-#   if [[ $# -eq 0 ]]; then
-#     clear;
-#     br;
-#     case "$(ls -1 | wc -l)" in
-#       0)
-#         br;
-#         echo "There is nothing inside $(basename $PWD)";
-#         br;;
-#       *)
-#         case "$(ls -1 | wc -l)" in
-#           1)it="item";;
-#           *)it="items";;
-#         esac
-#         echo "   $(basename $PWD) folder has $(ls -1 | wc -l) $it : ";
-#         br;
-#         if [[ $(ls -1 | wc -l) -gt 50 ]]; then
-#           br;
-#         else
-#           ls
-#         fi
-#         br;
-#     esac
-#   elif [[ $# -eq 1 ]]; then
-#     clear;
-#     br;
-#     case "$(ls -1 $1 | wc -l)" in
-#       0)
-#         br;
-#         echo "There is nothing inside $(basename $1)";
-#         br;
-#         sleep 1;
-#         cv;
-#         br;;
-#       *)
-#         case "$(ls -1 $1 | wc -l)" in
-#           1)it="item";;
-#           *)it="items";;
-#         esac
-#         echo "   $(basename $1) folder has $(ls -1 $1 | wc -l) $it : ";
-#         br;
-#         if [[ $(ls -1 "$1" | wc -l) -gt 50 ]]; then
-#           br;
-#         else
-#           ls "$1";
-#         fi
-#         br;
-#         sleep 1;
-#         cv;
-#     esac
-#   fi
-# }
-
 # this alias to know the file type
 alias tp="tp"
 
@@ -2858,370 +2721,6 @@ function pyenv {
   [[ -n "$VIRTUAL_ENV" ]] && deactivate \
     || source .venv/bin/activate
 }
-
-# # this function for python alias
-# # IMPROVED : 10-05-2024 22:28
-# # Check if the VIRTUAL_ENV is set
-# # then use python.exe in there
-# function python {
-#   if [[ "$DISPLAY" != ":0" ]]; then
-#     /usr/bin/python3 "$@"
-#     return 0
-#   fi
-#
-#   if [[ "$PWD" != "/mnt/"* ]]; then
-#     $PYTHON_PATH/python.exe "$@"
-#   else
-#
-#     # Check if the script is being run with sudo
-#     if [[ $EUID -eq 0 ]]; then
-#       echo "Running with sudo"
-#       # Create an array to hold arguments for PowerShell
-#       local arg_list=()
-#
-#       # Loop through all the provided arguments and escape them correctly
-#       for arg in "$@"; do
-#         arg_list+=("\"$arg\"") # Add quotes to each argument
-#       done
-#
-#       # Join the array into a single string with commas for PowerShell
-#       local args_string=$(IFS=, ; echo "${arg_list[*]}")
-#
-#       powershell.exe -command "Start-Process $(wslpath -w $PYTHON_PATH)\python.exe -ArgumentList $args_string -Verb RunAs"
-#     fi
-#
-#     if [[ -n "$VIRTUAL_ENV" ]]; then
-#       # since I made it hidden handle the leading dot
-#       local env_dir=$(dirname "$VIRTUAL_ENV")/.$(basename "$VIRTUAL_ENV")
-#       local python_cmd=$(wslpath -w "$env_dir/Scripts/python.exe")
-#       cmd.exe /c "$python_cmd" "$@"
-#     else
-#       cmd.exe /c python.exe "$@"
-#     fi
-#   fi
-# }
-#
-# # this function to create a linux python environment
-# function create_env {
-#   local env_name="$1"
-#   python -m venv $env_name
-# }
-#
-# # this function to activate a linux python
-# # environment, a functionality found on
-# # the activate script
-# function activate_env {
-#   # reset the PATH first
-#   # reset_path
-#
-#   # get the env name
-#   local env_name="$1"
-#   local display_env="${env_name#.}"
-#
-#   # get the virtual environment
-#   # this will be displayed on
-#   # our prompt but the real
-#   # environment path is given below
-#   export VIRTUAL_ENV=$PWD/$display_env
-#
-#   # symlinking the executables
-#   local scripts_dir="$PWD/$env_name/Scripts"
-#   local target_dir="/usr/bin"
-#
-#   # Check if Scripts directory exists
-#   if [[ -d "$scripts_dir" ]]; then
-#     for exe_file in "$scripts_dir"/*.exe; do
-#       # Check if there are .exe files in the directory
-#       if [[ -e "$exe_file" ]]; then
-#         # Remove the .exe extension
-#         local base_name=$(basename "$exe_file" .exe)
-#         sudo ln -sf "$exe_file" "$target_dir/$base_name"
-#         # echo "Symlinked $base_name to $target_dir"
-#       fi
-#     done
-#   else
-#     echo "Scripts directory not found in $scripts_dir"
-#   fi
-#
-#   # # handle hidden env
-#   # local env_dir=$(dirname "$VIRTUAL_ENV")/$env_name
-#
-#   # # incude the virtual env to path
-#   # PATH=$env_dir/bin:$PATH
-#   # export PATH
-# }
-#
-# # This function finds all Python virtual
-# # environments in the current directory and returns them as an array.
-# function find_envs {
-#   local envs=()
-#
-#   # Enable 'nullglob' to prevent errors when using glob patterns (e.g., "$PWD"/*/)
-#   # In Zsh, if a glob pattern doesn't match any files or directories, an error like
-#   # "no matches found" is thrown. By setting 'nullglob', unmatched glob patterns
-#   # will expand to an empty string instead of causing an error. This allows safe iteration
-#   # through directories even when no matches are found.
-#   # We'll turn it off later (with 'unsetopt nullglob') to restore the default behavior,
-#   # ensuring that this change is only temporary within the script.
-#   setopt nullglob
-#
-#   for dir in "$PWD"/*/ "$PWD"/.*/; do
-#     [[ -f "$dir/Scripts/python.exe" ]] && envs+=("$dir")
-#   done
-#   echo "${envs[@]}"
-# }
-#
-# # this function to remove
-# # python virtual env from path
-# function reset_path {
-#   if [[ -n "$VIRTUAL_ENV" ]]; then
-#     # get the path to VIRTUAL_ENV
-#     local env_dir=$(dirname $VIRTUAL_ENV)
-#     local env_name=.$(basename $VIRTUAL_ENV)
-#
-#     # Remove the env from the path
-#     export PATH=$(echo $PATH | sed "s|^$env_dir/$env_name/bin:||")
-#   fi
-# }
-#
-# # this function to unset the VIRTUAL_ENV
-# # global variable and restore the PATH to
-# # the original one, yet this is the code
-# # behind python environment deactivate
-# function disable_env {
-#   # reset the path
-#   # reset_path
-#
-#   # get the env path
-#   local env_path="$(basename $VIRTUAL_ENV)"
-#
-#   # symlinking the executables
-#   local scripts_dir="$PWD/.$env_path/Scripts"
-#   local target_dir="/usr/bin"
-#
-#   # Check if Scripts directory exists
-#   if [[ -d "$scripts_dir" ]]; then
-#     for exe_file in "$scripts_dir"/*.exe; do
-#       # Check if there are .exe files in the directory
-#       if [[ -e "$exe_file" ]]; then
-#         # Remove the .exe extension
-#         local base_name=$(basename "$exe_file" .exe)
-#         local target_symlink="$target_dir/$base_name"
-#
-#         # Check if the symlink exists
-#         if [[ -L "$target_symlink" ]]; then
-#           sudo unlink "$target_symlink"
-#           # echo "Unlinked $target_symlink"
-#         else
-#           echo "No symlink found for $base_name in $target_dir"
-#         fi
-#       fi
-#     done
-#   else
-#     echo "Scripts directory not found in $scripts_dir"
-#   fi
-#
-#   # unset the virtual environment
-#   unset VIRTUAL_ENV
-# }
-#
-# # This function deletes the specified Python virtual
-# # environment and unsets the VIRTUAL_ENV variable.
-# function delete_env {
-#   local env_name="$1"
-#
-#   dir_name=$(basename "$env_name")
-#   display_dir="${dir_name#.}"
-#
-#   echo -ne "${BOLD} Deleting ${LIGHT_BLUE}$display_dir ${WHITE}python environment... ${RESET}"
-#   rm -rf $dir_name
-#   echo "${BOLD}${GREEN} ${RESET}"
-# }
-#
-# # this alias to create a python environment
-# # from windows python and activate it
-# # SOLVED : 10-05-2024 22:23
-# # Finally I figured it out, I managed to
-# # display the Windows python virtual environment
-# # in the Powerlevel10k prompt, no big deal just
-# # export the VIRTUAL_ENV variable with the path
-# # of the Windows python virtual environment.
-# # No need to activate it; Python and pip will automatically
-# # use the executables in that environment if VIRTUAL_ENV is set.
-# alias pyenv="allow_sudo && pyenv"
-#
-# # this function for pyenv alias
-# function pyenv {
-#     if [[ $# -eq 0 ]]; then
-#       if [[ -n "$VIRTUAL_ENV" ]]; then
-#         # unset VIRTUAL_ENV
-#         disable_env
-#       else
-#         # an array to store the envs
-#         local envs=($(find_envs))
-#
-#         if [[ ${#envs[@]} -eq 0 ]]; then
-#           local env_name=".virenv"
-#           local display_env="${env_name#.}"
-#
-#           # creating a new env
-#           echo -ne "${BOLD} Creating ${LIGHT_BLUE}$display_env ${WHITE}python environment... ${RESET}"
-#           create_env "$env_name"
-#           echo "${BOLD}${GREEN} ${RESET}"
-#
-#           # activating the new env
-#           echo -ne "${BOLD} Activating ${LIGHT_BLUE}$display_env ${WHITE}environment... ${RESET}"
-#           activate_env "$env_name"
-#           echo "${BOLD}${GREEN} ${RESET}"
-#
-#           return 0
-#         fi
-#
-#         if [[ ${#envs[@]} -eq 1 ]]; then
-#           # activate if it has atched on env
-#           local env_name=$(basename ${envs[1]})
-#           local display_env="${env_name#.}"
-#
-#           echo -ne "${BOLD} Activating ${LIGHT_BLUE}$display_env ${WHITE}environment... ${RESET}"
-#           activate_env "$env_name"
-#           echo "${BOLD}${GREEN} ${RESET}"
-#
-#           # activate_env "$env_name"
-#         elif [[ ${#envs[@]} -gt 1 ]]; then
-#           # prompt user to choose the env to activate
-#           echo "\n${BOLD}${GREEN} Multiple ${WHITE}virtual ${LIGHT_BLUE}environments ${WHITE}found (${#envs[@]}) ${RESET}\n"
-#
-#           # loop through envs
-#           for i in {1..${#envs[@]}}; do
-#             index=$((i))
-#             dir_name=$(basename "${envs[$index]}")
-#             display_dir="${dir_name#.}"
-#             echo "${BOLD}${WHITE} $index) $display_dir ${RESET}"
-#           done
-#
-#           # get the choice
-#           echo -n "\n${BOLD}${WHITE} Your selection : "
-#           read choice
-#
-#           # Validate the choice
-#           if [[ "$choice" =~ ^[0-9]+$ ]] && (( choice > 0 && choice <= ${#envs[@]} )); then
-#             local index=$((choice))
-#             local selected_env="${envs[$index]}"
-#             local env_name=$(basename $selected_env)
-#
-#             # activate the selected env
-#             activate_env "$env_name"
-#             return 0
-#           else
-#             echo "Invalid selection."
-#             return 0
-#           fi
-#         fi
-#       fi
-#     else
-#       if [[ "$1" == "delete" ]]; then
-#         if [[ -n "$VIRTUAL_ENV" ]]; then
-#           # disable the current env
-#           # if it has been set
-#           disable_env
-#         fi
-#
-#         # an array to store the envs
-#         local envs=($(find_envs))
-#
-#         if [[ ${#envs[@]} -eq 0 ]]; then
-#           return
-#         fi
-#
-#         if [[ ${#envs[@]} -ge 1 ]]; then
-#           for i in {1..${#envs[@]}}; do
-#             index=$((i))
-#             delete_env "${envs[$index]}"
-#           done
-#         fi
-#       else
-#         local env_name=".$1"
-#         local display_env="${env_name#.}"
-#
-#         if [[ -n "$VIRTUAL_ENV" ]]; then
-#           # disable the current env
-#           # if it has been set
-#           disable_env
-#         fi
-#
-#         # if it is already an env inside $PWD
-#         if [[ -d "$PWD/$env_name/Scripts" ]]; then
-#           export VIRTUAL_ENV=$PWD/$display_env
-#         else
-#           # creating a new env
-#           echo -ne "${BOLD} Creating ${LIGHT_BLUE}$display_env ${WHITE}python environment... ${RESET}"
-#           create_env "$env_name"
-#           echo "${BOLD}${GREEN} ${RESET}"
-#
-#           # activating the new env
-#           echo -ne "${BOLD} Activating ${LIGHT_BLUE}$display_env ${WHITE}environment... ${RESET}"
-#           activate_env "$env_name"
-#           echo "${BOLD}${GREEN} ${RESET}"
-#         fi
-#         return 0
-#       fi
-#     fi
-# }
-#
-# # Alias to call the windows pip
-# # IMPROVED : 10-05-2024 22:29
-# # If VIRTUAL_ENV is set we launch the
-# # pip.exe in there so that every package
-# # will be installed inside the environment
-# # instead of the global environment
-# alias pip="pip"
-#
-# # Function for pip alias
-# function pip {
-#   if [[ "$DISPLAY" != ":0" ]]; then
-#     /usr/bin/pip3 "$@"
-#     return 0
-#   fi
-#
-#   # Check if we are inside WSL directory or a symbolic link
-#   if [[ "$PWD" == "/mnt/"* || -L "$PWD" ]]; then
-#     if [[ -n "$VIRTUAL_ENV" ]]; then
-#       # since I made it hidden handle the leading dot
-#       local env_dir=$(dirname "$VIRTUAL_ENV")/.$(basename "$VIRTUAL_ENV")
-#       local pip_cmd=$(wslpath -w "$env_dir/Scripts/pip.exe")
-#       cmd.exe /c $pip_cmd "$@"
-#     else
-#       cmd.exe /c pip "$@"
-#     fi
-#   else
-#     cd /mnt/c
-#     if [[ -n "$VIRTUAL_ENV" ]]; then
-#       # since I made it hidden handle the leading dot
-#       local env_dir=$(dirname "$VIRTUAL_ENV")/.$(basename "$VIRTUAL_ENV")
-#       local pip_cmd=$(wslpath -w "$env_dir/Scripts/pip.exe")
-#       cmd.exe /c $pip_cmd "$@"
-#     else
-#       cmd.exe /c pip "$@"
-#     fi
-#     cd - &>/dev/null
-#   fi
-# }
-#
-# # this alias to check if a python package
-# # is already installed or not
-# alias pycheck="pycheck"
-#
-# # this function for pycheck alias
-# function pycheck {
-#   local package="$1"
-#
-#   if pip show $package 2>&1 | grep -q "WARNING"; then
-#     echo -n "${BOLD}${WHITE} Installing ${GREEN}$package ${WHITE}...${RESET}\n"
-#     pip install $package
-#   else
-#     pip show $package
-#   fi
-# }
 
 #######################################################################
 

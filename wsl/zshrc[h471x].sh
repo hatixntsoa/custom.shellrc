@@ -578,7 +578,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -1416,6 +1416,20 @@ function chrome {
 
 ### CTF Platfomrs Aliases
 
+# this function to initiate
+# a default ctf directory
+function ctf {
+  mkdir -p \
+    access \
+    enumeration/nmap \
+    credentials \
+    decryption \
+    exploit \
+    files \
+    flags \
+    screenshots
+}
+
 # this function to list
 # available openvpn profiles
 function list_vpn {
@@ -1732,7 +1746,7 @@ alias ht="open_link chrome-extension://cmbndhnoonmghfofefkcccljbkdpamhi/index.ht
 alias crack="open_chrome_app crackstation.net CrackStation"
 
 # this alias to open 247 CTF App
-alias ctf="open_chrome_app 247ctf.com 247CTF"
+alias 247ctf="open_chrome_app 247ctf.com 247CTF"
 
 # this alias to open PicoCTF
 alias pico="open_link https://www.picoctf.org"
@@ -1767,6 +1781,9 @@ alias wgl="open_link https://wigle.net"
 
 # this alias to open Virus Total Web App
 alias vrst="open_chrome_app virustotal.com VirusTotal"
+
+# this alias to open malpedia
+alias malpedia="brave https://malpedia.caad.fkie.fraunhofer.de"
 
 # this alias to open Gmail WebApp
 alias gmail="open_link https://gmail.com"

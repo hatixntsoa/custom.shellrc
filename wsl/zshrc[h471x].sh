@@ -2723,12 +2723,12 @@ alias python="python3"
 
 # this function for python environment management
 function pyenv {
-  [[ ! -d .venv ]] && \
-    echo "Creating virtual environment..." && \
-    python3 -m venv .venv
-
-  [[ -n "$VIRTUAL_ENV" ]] && deactivate \
-    || source .venv/bin/activate
+  [[ -n "$VIRTUAL_ENV" ]] && deactivate || {
+    [[ ! -d .venv ]] && \
+      echo "Creating virtual environment..." && \
+      python3 -m venv .venv
+    source .venv/bin/activate
+  }
 }
 
 #######################################################################

@@ -1905,12 +1905,14 @@ function gthb {
 
 # this alias to copy the current
 # directory path in windows format
+# IMPROVED : 03-20-2025 12:03
+# Escape Windows backslashes (\\)
 alias winpath="check_lin && winpath"
 
 # this function for winpath alias
 function winpath {
-  echo $(wslpath -w $PWD) | clip.exe
-  echo "Path copied to clipboard."
+  echo "$(wslpath -w "$PWD" | sed 's/\\/\\\\/g')" | clip.exe
+  echo "Windows Path Copied."
 }
 
 # this alias to copy the current
@@ -1926,7 +1928,7 @@ function path {
   fi
 
   echo $PWD | $clipboard
-  echo "Path copied to clipboard."
+  echo "Linux Path Copied."
 }
 
 # this alias to switch to windows terminal

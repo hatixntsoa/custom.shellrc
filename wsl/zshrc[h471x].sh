@@ -1921,11 +1921,11 @@ alias path="path"
 
 # this function for path alias
 function path {
-  if [[ "$DISPLAY" == ":0" ]]; then
-    local clipboard="clip.exe"
-  else
-    local clipboard="xclip"
-  fi
+  local clipboard=$(
+    [[ "$DISPLAY" == ":0" ]] && \
+      echo "clip.exe" || \
+      echo "xclip"
+  )
 
   echo $PWD | $clipboard
   echo "Linux Path Copied."
@@ -2020,6 +2020,10 @@ function new_host {
   # Add to windows host if we use
   # windows terminal
   if [[ "$DISPLAY" == ":0" ]]; then
+    # win_run cmd.exe /c "sudo wsl \
+    #   echo -e '\n# $description\n$host $redirection' \
+    #   | sudo tee -a /etc/hosts > /dev/null
+    # "
     powershell.exe -Command "Start-Process powershell \
       -Verb RunAs -WindowStyle Hidden \
       -ArgumentList \"-Command Add-Content -Path '$WINDOWS_ETC_HOSTS' \

@@ -2020,14 +2020,11 @@ function new_host {
   # Add to windows host if we use
   # windows terminal
   if [[ "$DISPLAY" == ":0" ]]; then
-    # win_run cmd.exe /c "sudo wsl \
-    #   echo -e '\n# $description\n$host $redirection' \
-    #   | sudo tee -a /etc/hosts > /dev/null
-    # "
     powershell.exe -Command "Start-Process powershell \
       -Verb RunAs -WindowStyle Hidden \
       -ArgumentList \"-Command Add-Content -Path '$WINDOWS_ETC_HOSTS' \
-      -Value '\`n# $description\`n$host $redirection'\""
+      -Value '\`n# $description\`n$host $redirection'\"
+    "
   fi
 
   # Add to WSL2 host

@@ -947,7 +947,8 @@ alias code="code"
 # this function for code alias
 function code {
   if [[ "$DISPLAY" == ":0" ]]; then
-    cmd.exe /c code "$@"
+    win_run cmd.exe /c code "$(wslpath -w $PWD | sed 's/\\/\\\\/g')"
+    # win_run cmd.exe /c code "$(wslpath -w $PWD | sed 's/\\/\\\\/g')"
   else
     /usr/bin/code-oss "$@" &>/dev/null
   fi
@@ -1113,6 +1114,12 @@ function wsh {
 # this function to open BurpSuite
 function burp {
   open_win_app $BURPSUITE_PATH BurpSuiteCommunity
+}
+
+# this function to open BloodHound
+function bloodhound {
+  [[ "$DISPLAY" == ":0" ]] && \
+    open_win_app $BLOODHOUND_PATH BloodHound
 }
 
 # this function to launch mobaXterm

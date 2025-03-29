@@ -1119,7 +1119,8 @@ function burp {
 # this function to open BloodHound
 function bloodhound {
   [[ "$DISPLAY" == ":0" ]] && \
-    open_win_app $BLOODHOUND_PATH BloodHound
+    open_win_app $BLOODHOUND_PATH BloodHound \
+    || /usr/bin/bloodhound
 }
 
 # this function to launch mobaXterm

@@ -608,6 +608,16 @@ function vf {
   fi
 }
 
+# this function to show tree
+# using eza if installed
+function tree {
+  if command -v eza >/dev/null 2>&1; then
+    eza -T --icons=always --no-quotes --group-directories-first
+  else
+    tree
+  fi
+}
+
 # this alias to open a directory
 alias op="op"
 

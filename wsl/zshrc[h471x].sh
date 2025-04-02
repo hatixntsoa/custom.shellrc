@@ -843,7 +843,7 @@ alias nvmr="allow_sudo && nvmr"
 function nvmr {
   sudo \
     PATH=$PATH:$SYSTEM32_PATH \
-    nvim "${1:-.}"
+    $NEOVIM_PATH/nvim "${1:-.}"
 }
 
 # this alias to edit a file

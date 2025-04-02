@@ -17,7 +17,7 @@ export ZSH="$HOME/.oh-my-zsh"
 SYSTEM32_PATH="/mnt/c/Windows/System32"
 NEOVIM_PATH="/opt/nvim/bin"
 
-PATH="$PATH:$NEOVIN_PATH:$SYSTEM32_PATH"
+PATH="$PATH:$NEOVIM_PATH:$SYSTEM32_PATH"
 
 # this to make Github CLI know which default browser it would use
 # this WSL issue was solved in gh GitHub Repo Pull Request

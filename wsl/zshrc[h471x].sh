@@ -153,7 +153,7 @@ source ~/.shellrc_env/env/api.sh
 
 ### WSL Paths
 
-PATH=$PATH:$PYTHON_PATH:$NEOVIM_PATH:$PYTHON_PACKAGES_PATH
+PATH=$PATH:$PYTHON_PATH:$PYTHON_PACKAGES_PATH
 
 #######################################################################
 
@@ -843,7 +843,7 @@ alias nvmr="allow_sudo && nvmr"
 function nvmr {
   sudo \
     PATH=$PATH:$SYSTEM32_PATH \
-    $NEOVIM_PATH/nvim "${1:-.}"
+    nvim "${1:-.}"
 }
 
 # this alias to edit a file

@@ -15,7 +15,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # CHROME_PATH=/mnt/c/Program\ Files/Google/chrome/Application/
 # Add clip.exe to Path
 SYSTEM32_PATH="/mnt/c/Windows/System32"
-NEOVIM_PATH="/opt/nvim/bin"
 
 PATH="$PATH:$NEOVIM_PATH:$SYSTEM32_PATH"
 

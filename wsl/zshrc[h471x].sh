@@ -153,7 +153,7 @@ source ~/.shellrc_env/env/api.sh
 
 ### WSL Paths
 
-PATH=$PATH:$PYTHON_PATH:$PYTHON_PACKAGES_PATH
+PATH=$PATH:$PYTHON_PATH:$NEOVIM_PATH:$PYTHON_PACKAGES_PATH
 
 #######################################################################
 

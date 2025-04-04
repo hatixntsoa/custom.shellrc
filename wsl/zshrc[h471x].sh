@@ -2745,13 +2745,42 @@ command_not_found_handler() {
 # this alias to launch windows python
 alias python="python3"
 
+# This function finds all Python virtual
+# environments in the current directory and returns them as an array.
+function find_envs {
+  local envs=()
+
+  # Enable 'nullglob' to prevent errors when using glob patterns (e.g., "$PWD"/*/)
+  # In Zsh, if a glob pattern doesn't match any files or directories, an error like
+  # "no matches found" is thrown. By setting 'nullglob', unmatched glob patterns
+  # will expand to an empty string instead of causing an error. This allows safe iteration
+  # through directories even when no matches are found.
+  # We'll turn it off later (with 'unsetopt nullglob') to restore the default behavior,
+  # ensuring that this change is only temporary within the script.
+  setopt nullglob
+
+  for dir in "$PWD"/*/ "$PWD"/.*/; do
+    [[ -f "$dir/bin/activate" ]] && envs+=("$dir")
+  done
+  echo "${envs[@]}"
+}
+
 # this function for python environment management
 function pyenv {
   [[ -n "$VIRTUAL_ENV" ]] && deactivate || {
-    [[ ! -d .venv ]] && \
+    # an array to store the envs
+    local envs=($(find_envs))
+
+    if [[ ${#envs[@]} -eq 1 ]]; then
+      local env_name=$(basename ${envs[1]})
+    else
+      local env_name=".venv"
+    fi
+
+    [[ ! -d $env_name ]] && \
       echo "Creating virtual environment..." && \
-      python3 -m venv .venv
-    source .venv/bin/activate
+      python3 -m venv $env_name
+    source $env_name/bin/activate
   }
 }
 

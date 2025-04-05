@@ -1483,7 +1483,7 @@ function import_vpn {
   # disconnect from the openvpn profile
   win_run cmd.exe /c start \
     openvpn-gui \
-    --command disconnect "$1"
+    --command import "$1"
 }
 
 # this function to interact to

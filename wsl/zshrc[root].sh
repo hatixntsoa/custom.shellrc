@@ -13,10 +13,11 @@ fastfile_var_prefix='$'
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 # CHROME_PATH=/mnt/c/Program\ Files/Google/chrome/Application/
+
 # Add clip.exe to Path
 SYSTEM32_PATH="/mnt/c/Windows/System32"
 
-PATH="$PATH:$NEOVIM_PATH:$SYSTEM32_PATH"
+PATH="$PATH:$SYSTEM32_PATH"
 
 # this to make Github CLI know which default browser it would use
 # this WSL issue was solved in gh GitHub Repo Pull Request

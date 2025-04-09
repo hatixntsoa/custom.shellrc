@@ -1998,7 +1998,6 @@ function cmd {
 # with regex matching check
 function check_input {
   # Remove the debug print statement
-  # echo "check_input called"
 
   local input_message="$1"
   local input

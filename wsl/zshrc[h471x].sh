@@ -958,7 +958,6 @@ alias code="code"
 function code {
   if [[ "$DISPLAY" == ":0" ]]; then
     win_run cmd.exe /c code "$(wslpath -w $PWD | sed 's/\\/\\\\/g')"
-    # win_run cmd.exe /c code "$(wslpath -w $PWD | sed 's/\\/\\\\/g')"
   else
     /usr/bin/code-oss "$@" &>/dev/null
   fi

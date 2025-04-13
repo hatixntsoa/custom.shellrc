@@ -1722,6 +1722,9 @@ alias flare="open_chrome_app cloudflare.com Cloudflare"
 # this alias to open Exploit Database
 alias xdb="open_brave_app exploit-db.com ExploitDB"
 
+# this alias to open National Vulnerability Database
+alias nvd="brave https://nvd.nist.gov/vuln/search"
+
 # this alias to open Discord
 alias dsc="open_chrome_app discord.com Discord"
 

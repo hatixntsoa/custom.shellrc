@@ -1421,7 +1421,11 @@ function open_link {
 
 # this function to open link using brave
 function brave {
-  open_link "$*" brave.exe
+  if [[ "$1" == "burp" ]]; then
+    win_run cmd.exe /c start brave --ignore-certificate-errors
+  else
+    open_link "$*" brave.exe
+  fi
 }
 
 # this function to open link using chrome
@@ -1846,14 +1850,24 @@ alias stk="open_chrome_app stackoverflow.com StackOverflow"
 
 ### GitHub Alias
 
+# function for connection check
+function connected {
+  sudo ping -c 1 github.com &>/dev/null
+}
+
 # this alias to open the GitHub app
-alias gthb="gthb"
+alias gthb="allow_sudo && gthb"
 
 # this function for gthb alias
 function gthb {
   if [[ "$DISPLAY" != ":0" ]]; then
     echo "Sorry, this is not a Linux app !"
     return 0
+  fi
+
+  if ! connected; then
+    echo "${BOLD} This won't work, you are offline !${RESET}"
+    exit 0
   fi
 
   local is_a_git_repo=$(git rev-parse --is-inside-work-tree 2>/dev/null)

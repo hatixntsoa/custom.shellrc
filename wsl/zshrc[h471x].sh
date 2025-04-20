@@ -153,7 +153,7 @@ source ~/.shellrc_env/env/api.sh
 
 ### WSL Paths
 
-PATH=$PATH:$PYTHON_PATH:$PYTHON_PACKAGES_PATH
+PATH=$PATH:$GO_PATH:$PYTHON_PATH:$PYTHON_PACKAGES_PATH
 
 #######################################################################
 
@@ -894,6 +894,9 @@ function edt(){
 
 # this alias to open the Dev directory
 alias dev="op $DEV_PATH"
+
+# this alias to open the credentials directory
+alias cred="op $CREDS_PATH"
 
 # this alias to open learning directory
 alias learn="op $DEV_PATH/learning"

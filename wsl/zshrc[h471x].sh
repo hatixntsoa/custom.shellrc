@@ -597,7 +597,7 @@ function vf {
     else
       case "${1##*.}" in
         html|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcapng|pdf|jpg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
-          xdg-open "$1"
+          xdg-open ./"$1"
           ;;
         *) nvim "$1" ;;
       esac

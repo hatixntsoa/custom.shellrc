@@ -1733,7 +1733,7 @@ alias xdb="open_brave_app exploit-db.com ExploitDB"
 alias nvd="brave https://nvd.nist.gov/vuln/search"
 
 # this alias to open Discord
-alias dsc="open_chrome_app discord.com Discord"
+alias dsc="open_brave_app discord.com Discord"
 
 # this function to open ascii art archive
 alias ascii="open_link https://www.asciiart.eu/logos"

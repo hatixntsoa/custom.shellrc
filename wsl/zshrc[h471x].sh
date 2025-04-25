@@ -1670,7 +1670,7 @@ alias rtr='open_chrome_app "www.airtel.mg" "Airtel Router"'
 alias htx="open_chrome_app 192.168.8.1 HTX_AP"
 
 # this alias to open chatGpt app
-alias gpt="open_chrome_app chatgpt.com ChatGPT"
+alias gpt="open_brave_app chatgpt.com ChatGPT"
 
 # this alias to open LeChat
 alias lechat="open_brave_app chat.mistral.ai LeChat"

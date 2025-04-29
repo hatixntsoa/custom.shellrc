@@ -980,7 +980,7 @@ function open_win_app {
     cmd.exe /c $executable
     cd - &>/dev/null
   else
-    explorer.exe "$(wslpath -w $app_path)\\$executable.exe"
+    explorer.exe "$(wslpath -w $app_path)\\$executable"
   fi
 
   return 0
@@ -1011,7 +1011,7 @@ function vm {
 alias docker-start="docker-start"
 
 function docker-start {
-  open_win_app $DOCKER_DESKTOP_PATH Docker\ Desktop
+  open_win_app $DOCKER_DESKTOP_PATH Docker\ Desktop.exe
 }
 
 # this alias to run rustc
@@ -1048,7 +1048,7 @@ function arp(){
 
 # this function to open virtual box
 function vbox {
-  open_win_app $VIRTUAL_BOX_PATH VirtualBox
+  open_win_app $VIRTUAL_BOX_PATH VirtualBox.exe
 }
 
 # this function to launch apple music
@@ -1058,17 +1058,17 @@ function music {
 
 # this function to run bluestacks
 function android {
-  open_win_app $BLUESTACKS_PATH HD-Player
+  open_win_app $BLUESTACKS_PATH HD-Player.exe
 }
 
 # this function to run Adobe Photoshop
 function aps {
-  open_win_app $PHOTOSHOP_PATH Photoshop
+  open_win_app $PHOTOSHOP_PATH Photoshop.exe
 }
 
 # this function to open GNS3
 function gns {
-  open_win_app $GNS3_PATH gns3
+  open_win_app $GNS3_PATH gns3.exe
 }
 
 # this function to open Windows Ghidra
@@ -1082,94 +1082,99 @@ function ghidra {
 
 # this function to launch MuseScore
 function msc {
-  open_win_app $MUSESCORE_PATH MuseScore4
+  open_win_app $MUSESCORE_PATH MuseScore4.exe
 }
 
 # this function to launch Office Word
 function word {
-  open_win_app $MICROSOFT_OFFICE_PATH WINWORD
+  open_win_app $MICROSOFT_OFFICE_PATH WINWORD.exe
 }
 
 # this function to launch Office Excel
 function xls {
-  open_win_app $MICROSOFT_OFFICE_PATH EXCEL
+  open_win_app $MICROSOFT_OFFICE_PATH EXCEL.exe
 }
 
 # this function to launch Office Powerpoint
 function ppt {
-  open_win_app $MICROSOFT_OFFICE_PATH POWERPNT
+  open_win_app $MICROSOFT_OFFICE_PATH POWERPNT.exe
 }
 
 # this function to launch Office Access
 function acc {
-  open_win_app $MICROSOFT_OFFICE_PATH MSACCESS
+  open_win_app $MICROSOFT_OFFICE_PATH MSACCESS.exe
 }
 
 # this function to open FL Studio
 function fl {
-  open_win_app $FL_STUDIO_PATH FL64
+  open_win_app $FL_STUDIO_PATH FL64.exe
 }
 
 # this function to open x64 debug program
 function dbg {
-  open_win_app $X64_DBG_PATH x64dbg
+  open_win_app $X64_DBG_PATH x64dbg.exe
 }
 
 # this function to open wireshark
 function wsh {
-  open_win_app $WIRESHARK_PATH Wireshark
+  open_win_app $WIRESHARK_PATH Wireshark.exe
 }
 
 # this function to open BurpSuite
 function burp {
-  open_win_app $BURPSUITE_PATH BurpSuiteCommunity
+  open_win_app $BURPSUITE_PATH BurpSuiteCommunity.exe
 }
 
 # this function to open BloodHound
 function bloodhound {
   [[ "$DISPLAY" == ":0" ]] && \
-    open_win_app $BLOODHOUND_PATH BloodHound \
+    open_win_app $BLOODHOUND_PATH BloodHound.exe \
     || /usr/bin/bloodhound
 }
 
 # this function to launch mobaXterm
 function moba {
-  open_win_app $MOBAXTERM_PATH MobaXterm
+  open_win_app $MOBAXTERM_PATH MobaXterm.exe
 }
 
 # this function to open Wub
 function wub {
-  open_win_app $WUB_PATH Wub_x64
+  open_win_app $WUB_PATH Wub_x64.exe
+}
+
+# this function to open Discord
+function dsc {
+  open_win_app $DISCORD_PATH Discord.lnk
 }
 
 # this function to open ventoy
 function ventoy {
-  open_win_app $VENTOY_PATH Ventoy2Disk
+  open_win_app $VENTOY_PATH Ventoy2Disk.exe
 }
 
 # this function to open rufus
 function rufus {
-  open_win_app $RUFUS_PATH rufus-4.6p
+  open_win_app $RUFUS_PATH rufus-4.6p.exe
 }
 
 # this function to open obsidian
 function obsd {
-  open_win_app $OBSIDIAN_PATH Obsidian
+  open_win_app $OBSIDIAN_PATH Obsidian.exe
 }
 
 # this function to open tor browser
 function torb {
-  open_win_app $TOR_PATH firefox
+  open_win_app $TOR_PATH firefox.exe
 }
 
 # this function to open total commander
 function tcmd {
-  open_win_app $TOTAL_CMD_PATH TOTALCMD64
+  open_win_app $TOTAL_CMD_PATH TOTALCMD64.exe
 }
 
 # this function to launch canva
 function canva {
-  open_win_app $CANVA_PATH Canva
+  open_win_app $CANVA_PATH Canva.exe
 }
 
 # Function to launch usbipd
@@ -1728,9 +1733,6 @@ alias xdb="open_brave_app exploit-db.com ExploitDB"
 
 # this alias to open National Vulnerability Database
 alias nvd="brave https://nvd.nist.gov/vuln/search"
-
-# this alias to open Discord
-alias dsc="open_brave_app discord.com Discord"
 
 # this function to open ascii art archive
 alias ascii="open_link https://www.asciiart.eu/logos"

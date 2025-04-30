@@ -1787,7 +1787,7 @@ alias thn="open_brave_app thehackernew.com 'The Hacker News'"
 alias cna="brave https://www.netacad.com"
 
 # this alias to open YouTube Web App
-alias ytb="open_brave_app youtube.com YouTube"
+alias ytb="chrome youtube.com"
 
 # this alias to open reddit Web App
 alias rdt="open_brave_app reddit.com Reddit"

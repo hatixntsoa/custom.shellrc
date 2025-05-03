@@ -1132,6 +1132,11 @@ function bloodhound {
     || /usr/bin/bloodhound
 }
 
+# this function to open dnspy
+function dnspy {
+  open_win_app $DNSPY_PATH dnSpy.exe
+}
+
 # this function to launch mobaXterm
 function moba {
   open_win_app $MOBAXTERM_PATH MobaXterm.exe

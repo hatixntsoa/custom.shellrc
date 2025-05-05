@@ -1679,6 +1679,9 @@ alias htx="open_chrome_app 192.168.8.1 HTX_AP"
 # this alias to open chatGpt app
 alias gpt="open_brave_app chatgpt.com ChatGPT"
 
+# this alias to open Grok
+alias grok="open_brave_app grok.com Grok"
+
 # this alias to open LeChat
 alias lechat="open_brave_app chat.mistral.ai LeChat"
 

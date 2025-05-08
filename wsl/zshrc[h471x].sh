@@ -1904,13 +1904,9 @@ function gthb {
       echo ${RESET}
 
       if [ "$check_view" = "y" ]; then
-        cd /mnt/c
-
-        cmd.exe /c start brave.exe \
+        win_run cmd.exe /c start brave.exe \
           --profile-directory=Default \
           --app=https://github.com/$repo_owner/$repo_name/tree/$current_branch
-
-        cd - &>/dev/null
         # gh repo view $repo_owner/$repo_name \
         #   --web --branch $current_branch \
         #   &>/dev/null

@@ -1606,10 +1606,10 @@ alias hmv="brave https://hackmyvm.eu"
 
 # this alias to open Pwned Labs Web App
 # AWS Learning Platform
-alias pwn="pwn"
+alias pwnd="pwnd"
 
-# this function for pwn alias
-function pwn {
+# this function for pwnd alias
+function pwnd {
   dest="$PWD"
   cd /mnt/c
 
@@ -1701,6 +1701,9 @@ function dpsk {
 function ollama {
   win_run cmd.exe /c ollama "$@"
 }
+
+# this alias to open CyberChef
+alias chef="brave https://gchq.github.io/CyberChef"
 
 # this alias to open LinkedIn WebApp
 alias lnk="open_link https://linkedin.com/feed"

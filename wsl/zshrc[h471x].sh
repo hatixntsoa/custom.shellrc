@@ -609,9 +609,9 @@ function vf {
 # using eza if installed
 function tree {
   if command -v eza >/dev/null 2>&1; then
-    eza -T --icons=always --no-quotes --group-directories-first
+    eza -T --icons=always --no-quotes --group-directories-first "$@"
   else
-    tree
+    tree "$@"
   fi
 }
 

@@ -1778,6 +1778,10 @@ alias clock="open_chrome_app localhost Clock"
 # this alias to open reverse shell generator
 alias revshell="open_chrome_app www.revshells.com Revshell"
 
+# this alias to open Free Coding Tools
+# which is used basically to obfuscate code
+alias fct="open_brave_app freecodingtools.org FreeCodingTools"
+
 # this alias to open  hacktool extension on brave
 alias ht="open_link chrome-extension://cmbndhnoonmghfofefkcccljbkdpamhi/index.html"
 

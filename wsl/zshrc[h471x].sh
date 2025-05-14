@@ -1802,7 +1802,16 @@ alias thn="open_brave_app thehackernew.com 'The Hacker News'"
 alias cna="brave https://www.netacad.com"
 
 # this alias to open YouTube Web App
-alias ytb="chrome youtube.com"
+alias ytb="ytb"
+
+# this function for ytb alias
+function ytb {
+  if [[ "$1" == "tv" ]]; then
+    brave youtube.com/tv
+  else
+    chrome youtube.com
+  fi
+}
 
 # this alias to open reddit Web App
 alias rdt="open_brave_app reddit.com Reddit"

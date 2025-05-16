@@ -39,7 +39,6 @@ export VISUAL="$DEFAULT_EDITOR"
 
 # Oh-My-Zsh custom theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
-# ZSH_THEME="archcraft"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/

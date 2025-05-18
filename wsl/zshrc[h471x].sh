@@ -1856,7 +1856,7 @@ function pvpn {
       win_run cmd.exe /c "taskkill /IM ProtonVPN.exe /F" &>/dev/null
     fi
 
-    open_win_app $PROTON_VPN_PATH ProtonVPN.Launcher
+    open_win_app $PROTON_VPN_PATH ProtonVPN.Launcher.exe
   else
     open_link 'https://account.proton.me/u/0/vpn'
   fi

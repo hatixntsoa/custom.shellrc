@@ -2034,8 +2034,6 @@ function cmd {
 # this function to prompt for input
 # with regex matching check
 function check_input {
-  # Remove the debug print statement
-
   local input_message="$1"
   local input
 

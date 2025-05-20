@@ -2275,10 +2275,9 @@ alias ipsh="ipsh"
 
 # this function for ntsh alias
 function ipsh {
-  # Example of predefined commands (modify as needed)
-  c && br  # Your predefined commands
+  c && br
   echo " Available IP Addresses: "
-  br  # Your predefined command
+  br
 
   # Capture the output of show_ip
   map_output=$(show_ip)

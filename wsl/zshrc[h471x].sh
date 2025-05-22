@@ -1166,6 +1166,24 @@ function obsd {
   open_win_app $OBSIDIAN_PATH Obsidian.exe
 }
 
+# this function to enable remote server
+# means the phone will be an HID device
+function remote {
+  if [[ "$1" == "stop" ]]; then
+    # Check if the Remote Server is running
+    if win_run cmd.exe /c "tasklist | findstr RemoteServerWin.exe" &>/dev/null; then
+      win_run cmd.exe /c "taskkill /IM RemoteServerWin.exe /F" &>/dev/null
+    fi
+  else
+    # Check if the Remote Server is running
+    if win_run cmd.exe /c "tasklist | findstr RemoteServerWin.exe" &>/dev/null; then
+      win_run cmd.exe /c "taskkill /IM RemoteServerWin.exe /F" &>/dev/null
+    fi
+
+    open_win_app $UNIFIED_REMOTE_PATH RemoteServerWin.exe
+  fi
+}
+
 # this function to open tor browser
 function torb {
   open_win_app $TOR_PATH firefox.exe

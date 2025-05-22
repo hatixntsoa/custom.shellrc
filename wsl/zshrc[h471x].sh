@@ -2006,6 +2006,11 @@ function path {
   echo "Linux Path Copied."
 }
 
+# this alias to open a
+# new wsl tab with the same
+# directory as the old one
+alias tab="wt.exe -d . wsl"
+
 # this alias to switch to windows terminal
 alias wds="wds"
 

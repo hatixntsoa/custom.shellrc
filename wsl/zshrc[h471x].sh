@@ -1239,6 +1239,11 @@ _usb_completion() {
 # Register the completion function for 'usb'
 complete -F _usb_completion usb
 
+# this function to launch team viewer
+function team {
+  open_win_app $TEAM_VIEWER_PATH TeamViewer.exe
+}
+
 # this alias to start screen recording
 # using windows OBS Studio
 alias obs="obs"

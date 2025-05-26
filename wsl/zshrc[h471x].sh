@@ -1727,6 +1727,9 @@ function ollama {
 # this alias to open CyberChef
 alias chef="open_brave_app github.com CyberChef"
 
+# this alias to open monkey type
+alias mt="brave https://monkeytype.com"
+
 # this alias to open LinkedIn WebApp
 alias lnk="open_link https://linkedin.com/feed"
 

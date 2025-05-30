@@ -2621,13 +2621,17 @@ alias sshon="allow_sudo && sshon"
 
 # this function for sshon alias
 function sshon {
-  local is_wsl=$(grep -qi microsoft /proc/version && echo true || echo false)
+  # local is_wsl=$(grep -qi microsoft /proc/version && echo true || echo false)
+  #
+  # if $is_wsl; then
+  #   sudo service ssh start &>/dev/null;
+  # else
+  #   svc_on ssh;
+  # fi
 
-  if $is_wsl; then
-    sudo service ssh start &>/dev/null;
-  else
-    svc_on ssh;
-  fi
+  # UPDATED : 2025-05-30 09:33
+  # WSL now boot with systemd
+  sudo systemctl start ssh
   sth;
 }
 
@@ -2636,10 +2640,14 @@ alias sshoff="allow_sudo && sshoff"
 
 # this function for sshoff alias
 function sshoff {
-  # sudo /etc/init.d/ssh stop;
-  if [[ $(pgrep sshd) ]]; then
-    sudo kill $(pgrep sshd);
-  fi
+  # # sudo /etc/init.d/ssh stop;
+  # if [[ $(pgrep sshd) ]]; then
+  #   sudo kill $(pgrep sshd);
+  # fi
+
+  # UPDATED : 2025-05-30 09:33
+  # WSL now boot with systemd
+  sudo systemctl stop ssh
   sth;
 }
 

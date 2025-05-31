@@ -149,7 +149,7 @@ source ~/.shellrc_env/env/api.sh
 
 ### WSL Paths
 
-PATH=$PATH:$GO_PATH:$PYTHON_PATH:$PYTHON_PACKAGES_PATH
+PATH=$PATH:$GO_PATH:$RUBY_PATH:$PYTHON_PATH:$PYTHON_PACKAGES_PATH
 
 #######################################################################
 
@@ -1068,6 +1068,16 @@ function aps {
 # this function to open GNS3
 function gns {
   open_win_app $GNS3_PATH gns3.exe
+}
+
+# this alias to launch the debug
+alias debug="debug"
+
+# this function for debug alias
+function debug(){
+  cd $DOSBOX_PATH
+  cmd.exe /c start DOSBox.exe DEBUGX.COM
+  cd - &>/dev/null
 }
 
 # this function to open Windows Ghidra

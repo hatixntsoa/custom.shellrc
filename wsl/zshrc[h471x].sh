@@ -1041,7 +1041,7 @@ function nslookup(){
 alias arp="arp"
 
 # this function for arp alias
-function arp(){
+function arp {
   win_run cmd.exe /c arp "$@"
 }
 
@@ -1192,6 +1192,23 @@ function remote {
 
     open_win_app $UNIFIED_REMOTE_PATH RemoteServerWin.exe
   fi
+}
+
+# this function to run windows flutter
+function flutter {
+  win_run cmd.exe /c flutter.bat "$@"
+}
+
+# this function to run windows adb app
+function adb {
+  win_run cmd.exe /c adb "$@"
+}
+
+# this function to run windows scrcpy
+# which btw is an android screen
+# mirroring app to the PC
+function scrcpy {
+  win_run cmd.exe /c scrcpy "$@"
 }
 
 # this function to open tor browser

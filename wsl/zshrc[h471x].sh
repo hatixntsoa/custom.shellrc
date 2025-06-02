@@ -1201,14 +1201,19 @@ function flutter {
 
 # this function to run windows adb app
 function adb {
-  win_run cmd.exe /c adb "$@"
+  adb.exe "$@"
+}
+
+# this function to launch keytool
+function keytool {
+  keytool.exe "$@"
 }
 
 # this function to run windows scrcpy
 # which btw is an android screen
 # mirroring app to the PC
 function scrcpy {
-  win_run cmd.exe /c scrcpy "$@"
+  scrcpy.exe "$@"
 }
 
 # this function to open tor browser

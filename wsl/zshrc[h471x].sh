@@ -1146,6 +1146,11 @@ function dnspy {
   open_win_app $DNSPY_PATH dnSpy.exe
 }
 
+# this function to open mentalist
+function mentalist {
+  open_win_app $MENTALIST_PATH Mentalist.exe
+}
+
 # this function to launch mobaXterm
 function moba {
   open_win_app $MOBAXTERM_PATH MobaXterm.exe
@@ -1197,6 +1202,11 @@ function remote {
 # this function to run windows flutter
 function flutter {
   win_run cmd.exe /c flutter.bat "$@"
+}
+
+# this function to run windows dart
+function dart {
+  win_run cmd.exe /c dart.bat "$@"
 }
 
 # this function to run windows adb app

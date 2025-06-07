@@ -1749,6 +1749,9 @@ alias grok="open_brave_app grok.com Grok"
 # this alias to open LeChat
 alias lechat="open_brave_app chat.mistral.ai LeChat"
 
+# this alias to open firebase studio
+alias firebase="open_brave_app studio.firebase.google.com 'Firebase Studio'"
+
 # this alias to open DeepSeek App
 alias dpsk="dpsk"
 

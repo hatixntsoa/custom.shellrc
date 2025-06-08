@@ -1852,9 +1852,6 @@ alias revshell="open_chrome_app www.revshells.com Revshell"
 # which is used basically to obfuscate code
 alias fct="open_brave_app freecodingtools.org FreeCodingTools"
 
-# this alias to open  hacktool extension on brave
-alias ht="open_link chrome-extension://cmbndhnoonmghfofefkcccljbkdpamhi/index.html"
-
 # this alias to open CrackStation App
 alias crack="open_chrome_app crackstation.net CrackStation"
 

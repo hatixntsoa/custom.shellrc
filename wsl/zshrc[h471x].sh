@@ -1076,7 +1076,7 @@ alias debug="debug"
 # this function for debug alias
 function debug(){
   cd $DOSBOX_PATH
-  cmd.exe /c start DOSBox.exe DEBUGX.COM
+  cmd.exe /c start DOSBox.exe DEBUG.COM
   cd - &>/dev/null
 }
 

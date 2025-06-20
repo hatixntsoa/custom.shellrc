@@ -1114,6 +1114,11 @@ function acc {
   open_win_app $MICROSOFT_OFFICE_PATH MSACCESS.exe
 }
 
+# this function to open PowerBI
+function pbi {
+  win_run cmd.exe /c start PBIDesktopStore.exe
+}
+
 # this function to open FL Studio
 function fl {
   open_win_app $FL_STUDIO_PATH FL64.exe

@@ -574,7 +574,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        pbix|webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -2880,7 +2880,11 @@ function pyenv {
 
     [[ ! -d $env_name ]] && \
       echo "Creating virtual environment..." && \
-      python3 -m venv $env_name
+      if command -v uv >/dev/null 2>&1; then
+        uv --quiet venv .venv
+      else
+        python3 -m venv $env_name
+      fi
     source $env_name/bin/activate
   }
 }

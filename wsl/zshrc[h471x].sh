@@ -2866,26 +2866,47 @@ function find_envs {
   echo "${envs[@]}"
 }
 
+function create_env {
+  echo "Creating virtual environment..."
+  if command -v uv >/dev/null 2>&1; then
+    uv --quiet venv .venv
+  else
+    python3 -m venv .venv
+  fi
+  source_env
+}
+
+function source_env {
+  echo "Activating virtual environment..."
+  source "$PWD/.venv/bin/activate"
+}
+
+function deactivate_env {
+  echo "Deactivating virtual environment..."
+  deactivate
+}
+
+function delete_env {
+  echo "Deleting virtual environment..."
+  rm -rf "$PWD/.venv"
+}
+
+
 # this function for python environment management
 function pyenv {
+  [[ "$1" == "delete" ]] && {
+    [[ -n "$VIRTUAL_ENV" ]] && deactivate
+      delete_env
+      return 0
+  }
+
+  [[ ! -d "$PWD/.venv" ]] && {
+    create_env
+    return 0
+  }
+
   [[ -n "$VIRTUAL_ENV" ]] && deactivate || {
-    # an array to store the envs
-    local envs=($(find_envs))
-
-    if [[ ${#envs[@]} -eq 1 ]]; then
-      local env_name=$(basename ${envs[1]})
-    else
-      local env_name=".venv"
-    fi
-
-    [[ ! -d $env_name ]] && \
-      echo "Creating virtual environment..." && \
-      if command -v uv >/dev/null 2>&1; then
-        uv --quiet venv .venv
-      else
-        python3 -m venv $env_name
-      fi
-    source $env_name/bin/activate
+    source_env
   }
 }
 

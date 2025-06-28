@@ -2895,9 +2895,9 @@ function delete_env {
 # this function for python environment management
 function pyenv {
   [[ "$1" == "delete" ]] && {
-    [[ -n "$VIRTUAL_ENV" ]] && deactivate
-      delete_env
-      return 0
+    [[ -n "$VIRTUAL_ENV" ]] && deactivate_env
+    delete_env
+    return 0
   }
 
   [[ ! -d "$PWD/.venv" ]] && {
@@ -2905,7 +2905,7 @@ function pyenv {
     return 0
   }
 
-  [[ -n "$VIRTUAL_ENV" ]] && deactivate || {
+  [[ -n "$VIRTUAL_ENV" ]] && deactivate_env || {
     source_env
   }
 }

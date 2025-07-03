@@ -553,8 +553,9 @@ function cvg {
 # this alias to use batcat as bat
 alias bat="batcat"
 
-# this to interact with clipboard
-function copy {
+# this alias to copy terminal
+# outputs to clipboard
+function copy_clipbpard {
   local clipboard=$(
     [[ "$DISPLAY" == ":0" ]] && \
       echo "clip.exe" || \
@@ -564,6 +565,34 @@ function copy {
   [[ "$#" -eq 0 ]] && \
     $clipboard || \
     $clipboard < "$1"
+}
+
+# function to copy files or directories
+function copy_file {
+  local copy_bin
+
+  if command -v rsync >/dev/null 2>&1; then
+    copy_bin="rsync -av --progress"
+  else
+    copy_bin="cp -rv"
+  fi
+
+  eval "$copy_bin \"$1\" \"$2\""
+}
+
+
+# this to interact with clipboard
+function copy {
+  if [[ "$#" -eq 1 ]]; then
+    copy_clipbpard "$1"
+  elif [[ "$#" -eq 2 ]]; then
+    copy_file "$1" "$2"
+  else
+    echo "copy - copy to clipboard or files"
+    echo "Usage : "
+    echo "- echo test | copy"
+    echo "- copy file destination"
+  fi
 }
 
 # this alias to view inside a file

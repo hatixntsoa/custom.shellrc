@@ -555,7 +555,7 @@ alias bat="batcat"
 
 # this alias to copy terminal
 # outputs to clipboard
-function copy_clipbpard {
+function copy_clipboard {
   local clipboard=$(
     [[ "$DISPLAY" == ":0" ]] && \
       echo "clip.exe" || \
@@ -580,15 +580,15 @@ function copy_file {
   eval "$copy_bin \"$1\" \"$2\""
 }
 
-
 # this to interact with clipboard
 function copy {
   if [[ "$#" -eq 1 ]]; then
-    copy_clipbpard "$1"
-  elif [[ "$#" -eq 2 ]]; then
-    copy_file "$1" "$2"
+    copy_clipboard "$1"
+  elif [[ "$#" -ge 2 ]]; then
+    copy_file "$1" "$2" "$@"
   else
     echo "copy - copy to clipboard or files"
+    echo
     echo "Usage : "
     echo "- echo test | copy"
     echo "- copy file destination"

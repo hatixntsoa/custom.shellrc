@@ -421,7 +421,7 @@ alias cv="cv"
 # UPDATED : 01/25/2024
 # to adjust the title
 # when we have more than 50 visible items
-function cv() {
+function cv {
   local target="$1"
   local folder_content="${target:-$PWD}"
   local folder_name=$(basename $folder_content)
@@ -430,7 +430,7 @@ function cv() {
   local hidden_item=$((total_item - visible_item))
 
   # this function for the header of cv alias
-  function show_header(){
+  function show_header {
     local folder_header
     if [[ $total_item -eq 0 ]]; then
       folder_header="Empty(0)";
@@ -446,14 +446,16 @@ function cv() {
   }
 
   # this function to show the content of the cv
-  function show_content(){
-    # local flag="${1:-}"
-    # ls $flag $folder_content;
-    eza --icons=always --no-quotes --group-directories-first $folder_content
+  function show_content {
+    if command -v eza >/dev/null 2>&1; then
+      eza --icons=always --no-quotes --group-directories-first $folder_content
+    else
+      ls $folder_content
+    fi
   }
 
   # this function to show the all of the cv content
-  function show_all(){
+  function show_all {
     c && br;
 
     if [[ $visible_item -lt 30 ]]; then
@@ -471,29 +473,6 @@ function cv() {
   show_all;
 }
 
-# this alias to copy to clipboard
-alias copy="xsel --input --clipboard"
-
-# this alias to paste from clipboard
-alias paste="xsel --output --clipboard"
-
-# this alias to use python3 when typing python
-alias python="python3"
-
-# this alias to push to pypi
-alias pypush="pypush"
-
-# this function for pypush alias
-function pypush {
-  local token_path=/home/h471x/NTSOA/credentials/pypi_h471x_token
-  local TWINE_USERNAME=__token__
-  local TWINE_PASSWORD=$(cat $token_path)
-  twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
-}
-
-# this alias to use pip3 when typing pip
-alias pip="pip3"
-
 # this alias to view the current directory content
 alias cvf="cvf"
 
@@ -501,7 +480,7 @@ alias cvf="cvf"
 # UPDATED : 01/25/2024
 # to adjust the title
 # when we have more than 50 visible items
-function cvf() {
+function cvf {
   local target="$1"
   local folder_content="${target:-$PWD}"
   local folder_name=$(basename $folder_content)
@@ -510,7 +489,7 @@ function cvf() {
   local hidden_item=$((total_item - visible_item))
 
   # this function for the header of cv alias
-  function show_header(){
+  function show_header {
     local folder_header
     if [[ $total_item -eq 0 ]]; then
       folder_header="Empty(0)";
@@ -526,12 +505,16 @@ function cvf() {
   }
 
   # this function to show the content of the cv
-  function show_content(){
-    eza --icons=always --no-quotes -a --group-directories-first $folder_content;
+  function show_content {
+    if command -v eza >/dev/null 2>&1; then
+      eza --icons=always --no-quotes -a --group-directories-first $folder_content;
+    else
+      ls -A $folder_content
+    fi
   }
 
   # this function to show the cv
-  function show_all(){
+  function show_all {
     c && br;
 
     if [[ $hidden_item -lt 30 ]]; then
@@ -554,21 +537,25 @@ function cvf() {
 alias cvg="cvg"
 
 # this function for cvg alias
-function cvg(){
+function cvg {
   local folder_name=$(basename $PWD)
   local item="$1"
   local matched_items=$(ls -A | grep "$item" | wc -l)
 
-  function show_header(){
+  function show_header {
     echo "${BOLD}   $folder_name -> contains $matched_items '$1' ${RESET}";
   }
 
-  function show_content(){
-    eza --icons=always --color=always -a --group-directories-first | grep "$1";
+  function show_content {
+    if command -v eza >/dev/null 2>&1; then
+      eza --icons=always --color=always -a --group-directories-first | grep "$1";
+    else
+      ls -A | grep "$1"
+    fi
   }
 
   # this function to show the cv
-  function show_all(){
+  function show_all {
     c && br;
 
     if [[ $matched_items -lt 20 ]]; then
@@ -581,6 +568,31 @@ function cvg(){
   }
   show_all $item;
 }
+
+# this alias to use batcat as bat
+alias bat="batcat"
+# this alias to copy to clipboard
+alias copy="xsel --input --clipboard"
+
+# this alias to paste from clipboard
+alias paste="xsel --output --clipboard"
+
+# this alias to use python3 when typing python
+alias python="python3"
+
+# this alias to push to pypi
+alias pypush="pypush"
+
+# this function for pypush alias
+function pypush {
+  local token_path=/home/h471x/NTSOA/credentials/pypi_h471x_token
+  local TWINE_USERNAME=__token__
+  local TWINE_PASSWORD=$(cat $token_path)
+  twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
+}
+
+# this alias to use pip3 when typing pip
+alias pip="pip3"
 
 # this alias to open a directory
 alias op="op"
@@ -1476,7 +1488,7 @@ function rld(){
   local shellrc=.$(basename $SHELL)rc;
   local is_wsl=$(grep -qi microsoft /proc/version && echo true || echo false)
   local platform=$($is_wsl && echo "wsl" || echo "linux")
-  local backup_dir=$HOME/NTSOA/custom_shellrc/$platform;
+  local backup_dir=$HOME/Files/custom_shellrc/$platform;
   local backup_file=zshrc[$USER].sh;
   local saved_message="$shellrc backed up"
 
@@ -2197,215 +2209,78 @@ function reach(){
 
 #######################################################################
 
-### Kali Linux Programs Aliases
+### Python Aliases
 
-# this function to create a linux python environment
-function create_env(){
-  local env_name="$1"
-  python -m venv $env_name
-}
-
-# this function to activate a linux python
-# environment, a functionality found on
-# the activate script
-function activate_env(){
-  # reset the PATH first
-  reset_path
-
-  # get the env name
-  local env_name="$1"
-  local display_env="${env_name#.}"
-
-  # get the virtual environment
-  # this will be displayed on
-  # our prompt but the real
-  # environment path is given below
-  export VIRTUAL_ENV=$PWD/$display_env
-
-  # handle hidden env
-  local env_dir=$(dirname "$VIRTUAL_ENV")/$env_name
-
-  # incude the virtual env to path
-  PATH=$env_dir/bin:$PATH
-  export PATH
-}
+# this alias to launch windows python
+alias python="python3"
 
 # This function finds all Python virtual
 # environments in the current directory and returns them as an array.
-function find_envs() {
+function find_envs {
   local envs=()
+
+  # Enable 'nullglob' to prevent errors when using glob patterns (e.g., "$PWD"/*/)
+  # In Zsh, if a glob pattern doesn't match any files or directories, an error like
+  # "no matches found" is thrown. By setting 'nullglob', unmatched glob patterns
+  # will expand to an empty string instead of causing an error. This allows safe iteration
+  # through directories even when no matches are found.
+  # We'll turn it off later (with 'unsetopt nullglob') to restore the default behavior,
+  # ensuring that this change is only temporary within the script.
   setopt nullglob
+
   for dir in "$PWD"/*/ "$PWD"/.*/; do
-    [[ -f "$dir/bin/python" ]] && envs+=("$dir")
+    [[ -f "$dir/bin/activate" ]] && envs+=("$dir")
   done
   echo "${envs[@]}"
 }
 
-# this function to remove
-# python virtual env from path
-function reset_path(){
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    # get the path to VIRTUAL_ENV
-    local env_dir=$(dirname $VIRTUAL_ENV)
-    local env_name=.$(basename $VIRTUAL_ENV)
-
-    # Remove the env from the path
-    export PATH=$(echo $PATH | sed "s|^$env_dir/$env_name/bin:||")
-  fi
-}
-
-# SOLVED : 10-07-2024 22:13
-# this function to unset the VIRTUAL_ENV
-# global variable and restore the PATH to
-# the original one, yet this is the code
-# behind python environment deactivate
-function disable_env(){
-  # reset the path
-  reset_path
-
-  # unset the virtual environment
-  unset VIRTUAL_ENV
-}
-
-# This function deletes the specified Python virtual
-# environment and unsets the VIRTUAL_ENV variable.
-function delete_env() {
-  local env_name="$1"
-
-  dir_name=$(basename "$env_name")
-  display_dir="${dir_name#.}"
-
-  echo -ne "${BOLD} Deleting ${LIGHT_BLUE}$display_dir ${WHITE}python environment... ${RESET}"
-  rm -rf $dir_name
-  echo "${BOLD}${GREEN} ${RESET}"
-}
-
-# this alias to manage python environment
-alias pyenv="pyenv"
-
-# this function for pyenv alias
-# SOLVED : 10-07-2024 21:58
-# Implemented first on WSL, now clarified for Linux.
-# Mimicking the source/env/activate behaviour but
-# creates a hidden env that looks normal on prompt.
-# Exports VIRTUAL_ENV to the name of the environment.
-# Adjusts the python executable path to
-# the one in the new env directory.
-# Relative functions set the path to
-# the env's Python when needed,
-# then revert to the default path afterward.
-function pyenv(){
-  if [[ $# -eq 0 ]]; then
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-      # disable env only, don't delete it
-      disable_env
-    else
-      local envs=($(find_envs))
-
-      if [[ ${#envs[@]} -eq 0 ]]; then
-        local env_name=".virenv"
-        local display_env="${env_name#.}"
-
-        # creating a new env
-        echo -ne "${BOLD} Creating ${LIGHT_BLUE}$display_env ${WHITE}python environment... ${RESET}"
-        create_env "$env_name"
-        echo "${BOLD}${GREEN} ${RESET}"
-
-        # activating the new env
-        echo -ne "${BOLD} Activating ${LIGHT_BLUE}$display_env ${WHITE}environment... ${RESET}"
-        activate_env "$env_name"
-        echo "${BOLD}${GREEN} ${RESET}"
-
-        return 0
-      fi
-
-      if [[ ${#envs[@]} -eq 1 ]]; then
-        # activate if it has atched on env
-        local env_name=$(basename ${envs[1]})
-        activate_env "$env_name"
-      elif [[ ${#envs[@]} -gt 1 ]]; then
-        # prompt user to choose the env to activate
-        echo "\n${BOLD}${GREEN} Multiple ${WHITE}virtual ${LIGHT_BLUE}environments ${WHITE}found (${#envs[@]}) ${RESET}\n"
-
-        # loop through envs
-        for i in {1..${#envs[@]}}; do
-          index=$((i))
-          dir_name=$(basename "${envs[$index]}")
-          display_dir="${dir_name#.}"
-          echo "${BOLD}${WHITE} $index) $display_dir ${RESET}"
-        done
-
-        # get the choice
-        echo -n "\n${BOLD}${WHITE} Your selection : "
-        read choice
-
-        # Validate the choice
-        if [[ "$choice" =~ ^[0-9]+$ ]] && (( choice > 0 && choice <= ${#envs[@]} )); then
-          local index=$((choice))
-          local selected_env="${envs[$index]}"
-          local env_name=$(basename $selected_env)
-
-          # activate the selected env
-          activate_env "$env_name"
-          return 0
-        else
-          echo "Invalid selection."
-          return 0
-        fi
-      fi
-    fi
+function create_env {
+  echo "Creating virtual environment..."
+  if command -v uv >/dev/null 2>&1; then
+    uv --quiet venv .venv
   else
-    if [[ "$1" == "delete" ]]; then
-      if [[ -n "$VIRTUAL_ENV" ]]; then
-        # disable the current env
-        # if it has been set
-        disable_env
-      fi
-
-      # an array to store the envs
-      local envs=($(find_envs))
-
-      if [[ ${#envs[@]} -eq 0 ]]; then
-        return
-      fi
-
-      if [[ ${#envs[@]} -ge 1 ]]; then
-        for i in {1..${#envs[@]}}; do
-          index=$((i))
-          delete_env "${envs[$index]}"
-        done
-      fi
-    else
-      local env_name=".$1"
-      local display_env="${env_name#.}"
-
-      if [[ -n "$VIRTUAL_ENV" ]]; then
-        # disable the current env
-        # if it has been set
-        disable_env
-      fi
-
-      # if it is already an env inside $PWD
-      if [[ -f "$PWD/$env_name/bin/python" ]]; then
-        # activating the existing env
-        echo -ne "${BOLD} Activating ${LIGHT_BLUE}$display_env ${WHITE}environment... ${RESET}"
-        activate_env "$env_name"
-        echo "${BOLD}${GREEN} ${RESET}"
-      else
-        # creating a new env
-        echo -ne "${BOLD} Creating ${LIGHT_BLUE}$display_env ${WHITE}python environment... ${RESET}"
-        create_env "$env_name"
-        echo "${BOLD}${GREEN} ${RESET}"
-
-        # activating the new env
-        echo -ne "${BOLD} Activating ${LIGHT_BLUE}$display_env ${WHITE}environment... ${RESET}"
-        activate_env "$env_name"
-        echo "${BOLD}${GREEN} ${RESET}"
-      fi
-      return 0
-    fi
+    python3 -m venv .venv
   fi
+  source_env
 }
+
+function source_env {
+  echo "Activating virtual environment..."
+  source "$PWD/.venv/bin/activate"
+}
+
+function deactivate_env {
+  echo "Deactivating virtual environment..."
+  deactivate
+}
+
+function delete_env {
+  echo "Deleting virtual environment..."
+  rm -rf "$PWD/.venv"
+}
+
+
+# this function for python environment management
+function pyenv {
+  [[ "$1" == "delete" ]] && {
+    [[ -n "$VIRTUAL_ENV" ]] && deactivate_env
+    delete_env
+    return 0
+  }
+
+  [[ ! -d "$PWD/.venv" ]] && {
+    create_env
+    return 0
+  }
+
+  [[ -n "$VIRTUAL_ENV" ]] && deactivate_env || {
+    source_env
+  }
+}
+
+#######################################################################
+
+### Kali Linux Programs Aliases
 
 # this alias to run an executable file or a script
 alias rn="rn"

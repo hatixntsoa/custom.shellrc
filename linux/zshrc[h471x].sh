@@ -1694,6 +1694,121 @@ function edtv(){
 
 #######################################################################
 
+### Host Aliases
+
+#this alias to open hosts files
+alias hosts="nvmr /etc/hosts"
+
+# this alias to add new host
+alias new_host="allow_sudo && new_host"
+
+# this function for new_host alias
+function new_host {
+  local host
+  local redirection
+  local description
+
+  # Get the host
+  echo -ne " Source Host : "
+  read host
+
+  # Get the redirection
+  echo -ne " Redirection : "
+  read redirection
+
+  # Get the description
+  echo -ne " Description : "
+  read description
+
+  # Remove any ANSI escape codes from inputs
+  host=$(echo "$host" | sed 's/\x1b\[[0-9;]*m//g')
+  redirection=$(echo "$redirection" | sed 's/\x1b\[[0-9;]*m//g')
+  description=$(echo "$description" | sed 's/\x1b\[[0-9;]*m//g')
+
+  sudo echo -e "\n# $description\n$host $redirection" \
+    | sudo tee -a /etc/hosts > /dev/null
+}
+
+# this alias to add host
+alias add_host="allow_sudo && add_host"
+
+# Function to add hosts interactively
+function add_host {
+  if [[ "$#" -eq 0 ]]; then
+    echo "Please specify the entry point to add!"
+    return 0
+  fi
+
+  local host="$1"
+  local ip=$(awk -v h="$host" '$2 == h {print $1}' /etc/hosts)
+  local redirection
+
+  # display informations
+  echo " Source Host : $ip"
+  echo " Redirection : $host"
+
+  echo -ne " Additional  : "
+  read redirection
+
+  # Add a new entry
+  sudo sed -i "/$host/s/$/ $redirection/" /etc/hosts
+}
+
+# complete add_host for host adding
+compctl -K _host_completion add_host
+
+# this alias to edit hosts IP
+alias edit_host="allow_sudo && edit_host"
+
+# this function for edit_host alias
+function edit_host {
+  local host="$1"
+  local ip=$(awk -v h="$host" '$2 == h {print $1}' /etc/hosts)
+  local new_ip
+
+  echo " Redirection  : $host"
+  echo " Source IP    : $ip"
+
+  # Get the new IP
+  echo -ne " Enter New IP : "
+  read new_ip
+
+  # Replace the old IP with the new IP
+  sudo sed -i "s/^$ip/$new_ip/" /etc/hosts
+}
+
+# this alias to change hosts
+alias change_host="allow_sudo && change_host"
+
+# this function for change_host alias
+function change_host {
+  local host="$1"
+  local ip=$(awk -v h="$host" '$2 == h {print $1}' /etc/hosts)
+  local new_ip
+
+  echo " Source IP    : $ip"
+  echo " Redirection  : $host"
+
+  # Get the new IP
+  echo -ne " Change Host  : "
+  read new_host
+
+  # Replace the old IP with the new IP
+  sudo sed -i "s/$host/$new_host/g" /etc/hosts
+}
+
+# complete the hosts functions
+# with /etc/hosts entries
+_host_completion() {
+  reply=($(awk '!/^#/ && NF {print $2}' /etc/hosts))
+}
+
+# autocomplete edit_host & change_host
+compctl -K _host_completion edit_host
+compctl -K _host_completion change_host
+
+#######################################################################
+
 ### Kali Linux Network Aliases
 
 # this function to switch from ethernet to wireless connection
@@ -2003,8 +2118,9 @@ function whk(){
         whk
       elif [[ "$wifi" = "n" ]]; then
         echo -ne " ${BOLD}${WHITE}[${GREEN}+${WHITE}]${WHITE} Switching to ${GREEN}Managed ${WHITE}Mode  ";
-        downnet eth0 && upnet wlan0;
-        wtp wlan0 managed;
+        # downnet eth0
+        upnet wlan0;
+        wtp wlan0mon managed;
         echo "${GREEN}  ${WHITE}"
         echo -ne " ${BOLD}${WHITE}[${GREEN}+${WHITE}]${WHITE} Restarting Network Manager "
         sudo service NetworkManager restart;
@@ -2016,7 +2132,7 @@ function whk(){
     allow_sudo && check_quit
   }
 
-  if [ -d /sys/class/net/wlan0 ]; then
+  if [ -d /sys/class/net/wlan0 || -d /sys/class/net/wlan0mon ]; then
     c && br
     hack_wifi
   else

@@ -2766,13 +2766,13 @@ alias cpf="cpf"
 # this function for cpf alias
 function cpf {
   if [[ $# -eq 2 ]]; then
-    if [[ -d "$1" ]]; then # here to check if the first argument is a directory
+    if [[ -d "$1" ]]; then
       cp -r "$1" "$2" && op "$2" && all "$1";
     else
       cp "$1" "$2" && op "$2" && all "$1";
     fi
   elif [[ $# -eq 1 ]]; then
-    if [[ -d "$1" ]]; then # here to check if the first argument is a directory
+    if [[ -d "$1" ]]; then
       cp -r "$1" "$dest" && op "$dest" && all "$1";
     else
       cp "$@" "$dest" && op "$dest" && all "$@";

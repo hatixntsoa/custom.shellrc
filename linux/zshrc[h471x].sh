@@ -1568,6 +1568,18 @@ add_to_path $SIPP_PATH
 # here to hide the java options
 unset _JAVA_OPTIONS
 
+# this alias to copy the current
+# directory path in linux format
+alias path="path"
+
+# this function for path alias
+function path {
+  local clipboard="xclip"
+
+  echo $PWD | $clipboard
+  echo "Path Copied."
+}
+
 #######################################################################
 
 ### Kali Linux Shortcuts Aliases

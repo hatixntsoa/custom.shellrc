@@ -1574,9 +1574,7 @@ alias path="path"
 
 # this function for path alias
 function path {
-  local clipboard="xclip"
-
-  echo $PWD | $clipboard
+  echo $PWD | xclip -selection clipboard
   echo "Path Copied."
 }
 

@@ -1772,7 +1772,7 @@ function flg {
 alias rtr='open_chrome_app "www.airtel.mg" "Airtel Router"'
 
 # this alias to view the HTX_AP dashboard
-alias htx="open_chrome_app 192.168.8.1 HTX_AP"
+alias htx="open_chrome_app internet HTX_AP"
 
 # this alias to open chatGpt app
 alias gpt="open_brave_app chatgpt.com ChatGPT"

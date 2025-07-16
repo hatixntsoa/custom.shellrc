@@ -1076,7 +1076,11 @@ function arp {
 
 # this function to open virtual box
 function vbox {
-  open_win_app $VIRTUAL_BOX_PATH VirtualBox.exe
+  if [[ "$#" -eq 0 ]]; then
+    open_win_app $VIRTUAL_BOX_PATH VirtualBox.exe
+  else
+    VBoxManage.exe "$@"
+  fi
 }
 
 # this function to launch apple music
@@ -1318,6 +1322,11 @@ complete -F _usb_completion usb
 # this function to launch team viewer
 function team {
   open_win_app $TEAM_VIEWER_PATH TeamViewer.exe
+}
+
+# this function to launch linphone
+function phone {
+  open_win_app $LINPHONE_PATH linphone.exe
 }
 
 # this alias to start screen recording

@@ -794,7 +794,7 @@ alias svc_on="allow_sudo && svc_on"
 
 # this function for svc_on alias
 function svc_on(){
-  sudo service "$1" start;
+  sudo systemctl start "$1";
 }
 
 # this alias to stop systemctl based services
@@ -802,7 +802,7 @@ alias svc_off="allow_sudo && svc_off"
 
 # this function for svc_off alias
 function svc_off(){
-  sudo service "$1" stop;
+  sudo systemctl stop "$1";
 }
 
 # this alias to restart a service
@@ -810,7 +810,7 @@ alias svc_rst="svc_rst"
 
 # this function for svc_rst alias
 function svc_rst(){
-  sudo service "$1" restart;
+  sudo systemctl restart "$1";
 }
 
 # this alias to view systemctl
@@ -819,7 +819,7 @@ alias svc_stat="allow_sudo && svc_stat"
 
 # this function for svc_stat alias
 function svc_stat(){
-  sudo service "$1" status;
+  sudo systemctl status "$1";
 }
 
 # this alias to show if a service if on or off
@@ -2336,9 +2336,6 @@ function reach(){
 #######################################################################
 
 ### Python Aliases
-
-# this alias to launch windows python
-alias python="python3"
 
 # this alias to launch exegol
 alias exegol='sudo -E /home/h471x/.local/bin/exegol'

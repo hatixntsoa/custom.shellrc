@@ -603,7 +603,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        pbix|webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        evtx|pbix|webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer
@@ -644,7 +644,7 @@ function tree {
 }
 
 # this alias to open a directory
-alias op="op"
+alias open="op"
 
 # this function for op alias
 function op {
@@ -1785,6 +1785,33 @@ alias htx="open_chrome_app internet HTX_AP"
 
 # this alias to open chatGpt app
 alias gpt="open_brave_app chatgpt.com ChatGPT"
+
+# this alias to start and open n8n
+alias n8n="n8nstart"
+
+# this function for n8n alias
+function n8nstart {
+  if ! command -v n8n >/dev/null 2>&1; then
+    echo "Error. n8n is not installed"
+    return 0
+  fi
+
+  echo "Starting n8n in a new terminal tab..."
+  wt.exe -d . wsl bash -c "n8n"
+
+  echo "Waiting for n8n to be ready on localhost:5678..."
+  for i in {1..20}; do
+    if nc -z localhost 5678; then
+      echo "n8n is ready!"
+      sleep 3
+      brave "http://localhost:5678"
+      return
+    fi
+    sleep 1
+  done
+
+  echo "n8n did not start in time."
+}
 
 # this alias to open Grok
 alias grok="open_brave_app grok.com Grok"

@@ -1780,8 +1780,8 @@ function flg {
 # this alias to recharge the router
 alias rtr='open_chrome_app "www.airtel.mg" "Airtel Router"'
 
-# this alias to view the HTX_AP dashboard
-alias htx="open_chrome_app internet HTX_AP"
+# this alias to view the internet dashboard
+alias internet="open_brave_app internet internet"
 
 # this alias to open chatGpt app
 alias gpt="open_brave_app chatgpt.com ChatGPT"
@@ -2097,6 +2097,15 @@ function gthb {
 #######################################################################
 
 ### WSL Terminal Aliases
+
+# this function to shutdown windows
+# withouth hibernation files inside
+# the drives for dual boot purposes
+function shutdown {
+  win_run cmd.exe /c "\
+    sudo shutdown /s /t 0 /f"
+  return 0
+}
 
 # this alias to copy the current
 # directory path in windows format

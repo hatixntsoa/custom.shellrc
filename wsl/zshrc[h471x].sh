@@ -582,8 +582,8 @@ function copy_file {
 
 # this to interact with clipboard
 function copy {
-  if [[ "$#" -eq 1 ]]; then
-    copy_clipboard "$1"
+  if [[ "$#" -le 1 ]]; then
+    copy_clipboard "$@"
   elif [[ "$#" -ge 2 ]]; then
     copy_file "$1" "$2" "$@"
   else

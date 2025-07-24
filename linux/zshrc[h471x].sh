@@ -571,6 +571,7 @@ function cvg {
 
 # this alias to use batcat as bat
 alias bat="batcat"
+
 # this alias to copy to clipboard
 alias copy="xsel --input --clipboard"
 
@@ -1557,6 +1558,10 @@ GO_PATH=/usr/local/go/bin
 HOME_PATH=$HOME/bin
 SCP_PATH=/usr/bin/scp
 SIPP_PATH=/home/h471x/Desktop/sipp
+ANDROID_HOME=$HOME/Android/Sdk
+ANDROID_TOOLS=$ANDROID_HOME/cmdline-tools/latest/bin
+ANDROID_PLATFORM=$ANDROID_HOME/platform-tools
+ANDROI_PATH=$ANDROID_TOOLS:$ANDROID_PLATFORM
 
 # Add the paths using the function
 add_to_path $CUPP_PATH
@@ -1564,6 +1569,7 @@ add_to_path $HOME_PATH
 add_to_path $GO_PATH
 add_to_path $SCP_PATH
 add_to_path $SIPP_PATH
+add_to_path $ANDROID_PATH
 
 # here to hide the java options
 unset _JAVA_OPTIONS

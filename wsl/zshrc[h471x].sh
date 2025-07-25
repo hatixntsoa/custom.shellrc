@@ -648,6 +648,10 @@ alias open="op"
 
 # this function for op alias
 function op {
+  if [[ "$#" -eq 0 ]]; then
+    exop
+  fi
+
   # Check if $1 is a symbolic link
   if [[ -L "$1" ]]; then
     # Resolve the real path of the symbolic link

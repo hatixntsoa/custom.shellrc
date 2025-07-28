@@ -1790,6 +1790,15 @@ alias internet="open_brave_app internet internet"
 # this alias to open chatGpt app
 alias gpt="open_brave_app chatgpt.com ChatGPT"
 
+# this alias to open CodeCrafters
+alias craft="open_brave_app codecrafters.io CodeCrafters"
+
+# this alias to open BrandFetch
+# which is btw a site to get
+# popular websites icons and logo
+# for phishing purposes
+alias brand="open_brave_app brandfetch.com BrandFetch"
+
 # this alias to start and open n8n
 alias n8n="n8nstart"
 

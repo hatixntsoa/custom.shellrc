@@ -1799,6 +1799,11 @@ alias craft="open_brave_app codecrafters.io CodeCrafters"
 # for phishing purposes
 alias brand="open_brave_app brandfetch.com BrandFetch"
 
+# this alias to open powershellforhackers.com
+# a site containing exploits & tools in powershell
+alias pwsh="open_brave_app powershellforhackers.com HackerDesktop"
+
+
 # this alias to start and open n8n
 alias n8n="n8nstart"
 

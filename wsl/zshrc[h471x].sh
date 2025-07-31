@@ -603,7 +603,7 @@ function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
       case "${1##*.}" in
-        evtx|pbix|webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+        txt|evtx|pbix|webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
           explorer.exe "$1"
           ;;
         # open all files that have default app with windows explorer

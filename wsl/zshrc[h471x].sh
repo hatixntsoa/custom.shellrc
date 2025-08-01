@@ -650,6 +650,7 @@ alias open="op"
 function op {
   if [[ "$#" -eq 0 ]]; then
     exop
+    return
   fi
 
   # Check if $1 is a symbolic link

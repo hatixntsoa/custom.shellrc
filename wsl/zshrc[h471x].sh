@@ -677,6 +677,8 @@ function op {
   # If $1 is a file (but not a symbolic link)
   elif [[ -f "$1" ]]; then
     vf "$1"
+  else
+    opdr "$1"
   fi
 }
 
@@ -2868,7 +2870,7 @@ function mvf {
 }
 
 # this alias to force delete
-alias rdf="allow_sudo && rdf"
+alias remove="allow_sudo && rdf"
 
 # this function for rdf alias
 function rdf {

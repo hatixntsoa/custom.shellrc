@@ -569,15 +569,15 @@ function copy_clipboard {
 
 # function to copy files or directories
 function copy_file {
-  local copy_bin
+  local src="$1"
+  local dest="$2"
+  shift 2
 
   if command -v rsync >/dev/null 2>&1; then
-    copy_bin="rsync -av --progress"
+    rsync -av --progress "$src" "$dest" "$@"
   else
-    copy_bin="cp -rv"
+    cp -rv "$@" "$src" "$dest"
   fi
-
-  eval "$copy_bin \"$1\" \"$2\""
 }
 
 # this to interact with clipboard
@@ -585,7 +585,11 @@ function copy {
   if [[ "$#" -le 1 ]]; then
     copy_clipboard "$@"
   elif [[ "$#" -ge 2 ]]; then
-    copy_file "$1" "$2" "$@"
+    local src="$1"
+    local dest="$2"
+    shift 2
+
+    copy_file "$src" "$dest" "$@"
   else
     echo "copy - copy to clipboard or files"
     echo

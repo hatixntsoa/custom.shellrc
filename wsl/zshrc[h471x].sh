@@ -683,7 +683,15 @@ function op {
   elif [[ -f "$1" ]]; then
     vf "$1"
   else
-    opdr "$1"
+    echo -ne "${BOLD}${GREEN}Create ${WHITE}new directory ${LIGHT_BLUE}$1 ${WHITE}? (y/n) ";
+    read check_dir
+    echo ${RESET}
+
+    if [ "$check_dir" = "y" ]; then
+      opdr "$1"
+    else
+      return 0
+    fi
   fi
 }
 
@@ -2089,7 +2097,7 @@ function gthb {
         #   --web --branch $current_branch \
         #   &>/dev/null
       elif [ "$check_view" = "n" ];then
-        open_chrome_app $github_link $github_name
+        open_brave_app $github_link $github_name
       else
         check_view
       fi

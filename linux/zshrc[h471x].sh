@@ -572,8 +572,43 @@ function cvg {
 # this alias to use batcat as bat
 alias bat="batcat"
 
-# this alias to copy to clipboard
-alias copy="xsel --input --clipboard"
+# this alias to copy terminal
+# outputs to clipboard
+function copy_clipboard {
+  xsel --input --clipboard < "$1"
+}
+
+# function to copy files or directories
+function copy_file {
+  local src="$1"
+  local dest="$2"
+  shift 2
+
+  if command -v rsync >/dev/null 2>&1; then
+    rsync -av --progress "$src" "$dest" "$@"
+  else
+    cp -rv "$@" "$src" "$dest"
+  fi
+}
+
+# this to interact with clipboard
+function copy {
+  if [[ "$#" -le 1 ]]; then
+    copy_clipboard "$@"
+  elif [[ "$#" -ge 2 ]]; then
+    local src="$1"
+    local dest="$2"
+    shift 2
+
+    copy_file "$src" "$dest" "$@"
+  else
+    echo "copy - copy to clipboard or files"
+    echo
+    echo "Usage : "
+    echo "- echo test | copy"
+    echo "- copy file destination"
+  fi
+}
 
 # this alias to paste from clipboard
 alias paste="xsel --output --clipboard"

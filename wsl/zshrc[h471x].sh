@@ -618,9 +618,6 @@ function vf {
             bwsop "$1"
           fi
           ;;
-        # fxml)
-        #   cmd.exe /c start SceneBuilder.exe "$@"
-        #   ;;
         *) nvim "$1" ;;
       esac
     else

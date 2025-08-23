@@ -2051,7 +2051,7 @@ alias stk="open_chrome_app stackoverflow.com StackOverflow"
 
 # function for connection check
 function connected {
-  sudo ping -c 1 github.com &>/dev/null
+  ping -c 1 github.com &>/dev/null
 }
 
 # this alias to open the GitHub app
@@ -2066,7 +2066,7 @@ function gthb {
 
   if ! connected; then
     echo "${BOLD} This won't work, you are offline !${RESET}"
-    exit 0
+    return 0
   fi
 
   local is_a_git_repo=$(git rev-parse --is-inside-work-tree 2>/dev/null)

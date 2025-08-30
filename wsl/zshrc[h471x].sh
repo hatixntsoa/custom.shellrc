@@ -845,7 +845,7 @@ function rld {
   local shellrc=.$(basename $SHELL)rc;
   local is_wsl=$(grep -qi microsoft /proc/version && echo true || echo false)
   local platform=$($is_wsl && echo "wsl" || echo "linux")
-  local backup_dir=$HOME/Files/custom_shellrc/$platform;
+  local backup_dir=$HOME/Files/custom.shellrc/$platform;
   local backup_file=zshrc[$USER].sh;
   local saved_message="$shellrc backed up"
 

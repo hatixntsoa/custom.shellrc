@@ -1822,6 +1822,11 @@ alias pwsh="open_brave_app powershellforhackers.com HackerDesktop"
 # AI Development and much more
 alias arxiv="brave https://arxiv.org"
 
+# this alias to open Duckify
+# a web app that will make
+# bad usb script writing easier
+alias duckify="open_brave_app duckify.spacehuhn.com Duckify"
+
 # this alias to start and open n8n
 alias n8n="n8nstart"
 

@@ -1827,6 +1827,11 @@ alias arxiv="brave https://arxiv.org"
 # bad usb script writing easier
 alias duckify="open_brave_app duckify.spacehuhn.com Duckify"
 
+# this alias to download high
+# quality songs in FLAC format
+# for free, close to original
+alias lucida="open_brave_app lucida.to Lucida"
+
 # this alias to start and open n8n
 alias n8n="n8nstart"
 

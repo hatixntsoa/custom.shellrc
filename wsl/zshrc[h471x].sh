@@ -1832,6 +1832,10 @@ alias duckify="open_brave_app duckify.spacehuhn.com Duckify"
 # for free, close to original
 alias lucida="open_brave_app lucida.to Lucida"
 
+# this alias to launch mp3tag
+# which is a music metadata editor
+alias mptag="open_win_app $MP3TAG_PATH Mp3tag.exe"
+
 # this alias to start and open n8n
 alias n8n="n8nstart"
 

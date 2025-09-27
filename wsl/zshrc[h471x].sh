@@ -139,11 +139,11 @@ QUESTION_MARK="$(printf '\xE2\x9D\x93')"
 
 ### WSL Environment Variables
 
-source ~/.shellrc_env/env/shortcuts.sh
-source ~/.shellrc_env/env/screen.sh
-source ~/.shellrc_env/env/paths.sh
-source ~/.shellrc_env/env/pwa.sh
-source ~/.shellrc_env/env/api.sh
+source ~/.shellrc.env/env/shortcuts.sh
+source ~/.shellrc.env/env/screen.sh
+source ~/.shellrc.env/env/paths.sh
+source ~/.shellrc.env/env/pwa.sh
+source ~/.shellrc.env/env/api.sh
 
 #######################################################################
 

@@ -72,9 +72,6 @@ ZSH_HIGHLIGHT_STYLES[globbing]='fg=#ff9000,bold'
 ZSH_HIGHLIGHT_STYLES[command-substitution-unquoted]='fg=#d30ccf,bold'
 ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]='fg=#d30ccf,bold'
 
-# here the color of the auto-suggestion
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=#0000ff"
-
 # source oh-my-zsh after everything have been loaded
 source $ZSH/oh-my-zsh.sh
 
@@ -476,7 +473,7 @@ function rld {
   local shellrc=.$(basename $SHELL)rc;
   local platform="termux"
   local backup_dir=$HOME/files/custom.shellrc/$platform;
-  local backup_file=zshrc[$USER].sh;
+  local backup_file=zshrc[$(whoami)].sh;
   local saved_message="$shellrc backed up"
 
   # source the config file and save it

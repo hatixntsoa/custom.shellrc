@@ -135,8 +135,6 @@ QUESTION_MARK="$(printf '\xE2\x9D\x93')"
 
 ### Basic Aliases
 
-### Basic Aliases
-
 # this alias to update the package
 alias upd="allow_sudo && upd"
 

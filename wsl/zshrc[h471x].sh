@@ -2993,7 +2993,8 @@ function find_envs {
 function create_env {
   echo "Creating virtual environment..."
   if command -v uv >/dev/null 2>&1; then
-    uv --quiet venv .venv
+    uv --quiet venv --seed .venv
+    # --seed flag to include pip
   else
     python3 -m venv .venv
   fi

@@ -155,6 +155,29 @@ PATH=$PATH:$GO_PATH:$RUBY_PATH:$PYTHON_PATH:$PYTHON_PACKAGES_PATH
 
 ### Basic Aliases
 
+# this alias to get the current
+# date and time and copy to clipboard
+alias rn="rn"
+
+# this function for rn alias
+# rn is short for right now btw
+function rn {
+  local datetime_text=$(date +"%m.%d.%Y %H:%M")
+  local date_text=$(date +"%m.%d.%Y")
+  local time_text=$(date +"%H:%M")
+
+  if [[ "$1" == "date" ]]; then
+    echo $date_text | copy
+    echo "Date copied to the clipboard."
+  elif [[ "$1" == "time" ]]; then
+    echo $time_text | copy
+    echo "Time copied to the clipboard."
+  else
+    echo $datetime_text | copy
+    echo "Date and Time copied to the clipboard."
+  fi
+}
+
 # this alias to update the package
 alias upd="allow_sudo && upd"
 

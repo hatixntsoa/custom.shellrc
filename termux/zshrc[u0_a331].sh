@@ -666,6 +666,78 @@ function tree {
 
 #######################################################################
 
+### Python Aliases
+
+# this alias to launch windows python
+alias python="python3"
+
+# This function finds all Python virtual
+# environments in the current directory and returns them as an array.
+function find_envs {
+  local envs=()
+
+  # Enable 'nullglob' to prevent errors when using glob patterns (e.g., "$PWD"/*/)
+  # In Zsh, if a glob pattern doesn't match any files or directories, an error like
+  # "no matches found" is thrown. By setting 'nullglob', unmatched glob patterns
+  # will expand to an empty string instead of causing an error. This allows safe iteration
+  # through directories even when no matches are found.
+  # We'll turn it off later (with 'unsetopt nullglob') to restore the default behavior,
+  # ensuring that this change is only temporary within the script.
+  setopt nullglob
+
+  for dir in "$PWD"/*/ "$PWD"/.*/; do
+    [[ -f "$dir/bin/activate" ]] && envs+=("$dir")
+  done
+  echo "${envs[@]}"
+}
+
+function create_env {
+  echo "Creating virtual environment..."
+  if command -v uv >/dev/null 2>&1; then
+    uv --quiet venv --seed .venv
+    # here the --seed flag let it copy pip
+  else
+    python3 -m venv .venv
+  fi
+  source_env
+}
+
+function source_env {
+  echo "Activating virtual environment..."
+  source "$PWD/.venv/bin/activate"
+}
+
+function deactivate_env {
+  echo "Deactivating virtual environment..."
+  deactivate
+}
+
+function delete_env {
+  echo "Deleting virtual environment..."
+  rm -rf "$PWD/.venv"
+}
+
+
+# this function for python environment management
+function pyenv {
+  [[ "$1" == "delete" ]] && {
+    [[ -n "$VIRTUAL_ENV" ]] && deactivate_env
+    delete_env
+    return 0
+  }
+
+  [[ ! -d "$PWD/.venv" ]] && {
+    create_env
+    return 0
+  }
+
+  [[ -n "$VIRTUAL_ENV" ]] && deactivate_env || {
+    source_env
+  }
+}
+
+#######################################################################
+
 ### p10k Config
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

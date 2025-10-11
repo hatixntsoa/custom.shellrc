@@ -162,18 +162,21 @@ alias rn="rn"
 # this function for rn alias
 # rn is short for right now btw
 function rn {
-  local datetime_text=$(date +"%m.%d.%Y %H:%M")
+  local datetime_text=$(date +"%m.%d.%Y %H.%M")
   local date_text=$(date +"%m.%d.%Y")
-  local time_text=$(date +"%H:%M")
+  local time_text=$(date +"%H.%M")
 
-  if [[ "$1" == "date" ]]; then
+  if [[ "$1" == "date" || "$1" == "d" ]]; then
     echo $date_text | copy
+    echo $date_text
     echo "Date copied to the clipboard."
-  elif [[ "$1" == "time" ]]; then
+  elif [[ "$1" == "time" || "$1" == "t" ]]; then
     echo $time_text | copy
+    echo $time_text
     echo "Time copied to the clipboard."
   else
     echo $datetime_text | copy
+    echo $datetime_text
     echo "Date and Time copied to the clipboard."
   fi
 }

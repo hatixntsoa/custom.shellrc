@@ -314,9 +314,6 @@ alias c="clear"
 # this alias to clear but with extra lines
 alias x="clear && echo -e && echo -e && echo -e && echo -e && echo -e && echo -e"
 
-# Clear screen at startup
-# x
-
 # this alias to break a line
 alias br="br"
 

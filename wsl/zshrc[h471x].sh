@@ -900,6 +900,20 @@ function nvm {
   nvim "${1:-.}";
 }
 
+# this function to use img2sixel
+# to view image on the terminal
+# note that it will only work
+# on a real terminal emulator
+# but not on android termux
+function view {
+  if command -v img2sixel >/dev/null 2>&1; then
+    img2sixel "$1"
+  else
+    echo "Please install img2sixel using the command :"
+    echo "pkg install libsixel"
+  fi
+}
+
 # this alias to call neovim in a cooler way
 alias hnvim="nvim"
 

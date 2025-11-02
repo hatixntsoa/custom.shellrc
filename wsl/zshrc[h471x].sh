@@ -2300,9 +2300,15 @@ function new_host {
   echo -ne " Source Host : "
   read host
 
-  # Get the redirection
-  echo -ne " Redirection : "
-  read redirection
+  if [[ "$#" -eq 1 ]]; then
+    # Display the redirection
+    redirection="$1"
+    echo " Redirection : $redirection"
+  else
+    # Get the redirection
+    echo -ne " Redirection : "
+    read redirection
+  fi
 
   # Get the description
   echo -ne " Description : "

@@ -296,18 +296,6 @@ function flc {
   fi
 }
 
-kill-line() {
-  if [[ $BUFFER == "" ]]; then
-    zle backward-kill-line
-  else
-    zle kill-whole-line
-  fi
-}
-
-zle -N kill-line
-bindkey "11" kill-line
-bindkey "²²" kill-line
-
 # this alias to clear
 alias c="clear"
 

@@ -351,9 +351,6 @@ kill-line() {
   fi
 }
 
-zle -N kill-line
-bindkey "²²" kill-line
-
 # this alias to clear
 alias c="clear"
 

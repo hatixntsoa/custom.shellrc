@@ -343,14 +343,6 @@ function sv(){
   cat "$1" > "$2";
 }
 
-kill-line() {
-  if [[ $BUFFER == "" ]]; then
-    zle backward-kill-line
-  else
-    zle kill-whole-line
-  fi
-}
-
 # this alias to clear
 alias c="clear"
 

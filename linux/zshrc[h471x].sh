@@ -33,7 +33,6 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Oh-My-Zsh custom theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
-# ZSH_THEME="archcraft"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/

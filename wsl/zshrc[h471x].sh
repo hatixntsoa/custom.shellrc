@@ -348,9 +348,6 @@ alias c="clear"
 # this alias to clear but with extra lines
 alias x="clear && echo -e && echo -e && echo -e && echo -e && echo -e && echo -e"
 
-# Clear screen at startup
-# x
-
 # Enable MOTD message at startup
 # Edit it inside /etc/update-motd.d/10-uname
 run-parts /etc/update-motd.d

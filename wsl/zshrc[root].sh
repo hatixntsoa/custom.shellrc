@@ -304,10 +304,6 @@ command_not_found_handler() {
 }
 
 
-#press the button alt twice to call cv
-#zle -N cv
-#bindkey ^²' cv
-
 #this alias to view the current directory content with specifications
 alias cvg="cvg"
 

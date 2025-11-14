@@ -8,9 +8,6 @@ fi
 # Make zsh instant prompt quiet
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-#here to make scrollbar work again disabling mouse
-#unsetopt mouse
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

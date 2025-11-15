@@ -138,10 +138,6 @@ function cvii(){
 #	fi
 }
 
-#call the followinf alias at startup
-#clear && echo -e && echo -e && echo -e && echo -e && echo -e && echo -e && echo -e && echo -e
-#clear && cvi
-
 # this alias to have the current view
 # of working directory content using ls
 alias cv="cv"

@@ -432,25 +432,6 @@ function mnv(){
   fi
 }
 
-
-#this alias to view tthe manual entry for a command
-alias mns="mns"
-
-#this function for mn alias
-function mns(){
-  if [[ $(command -v "$1") ]]; then
-    #here to check if the command exists
-    sudo -u h471x man "$1" | cat > /home/h471x/NTSOA/manual/"$1".txt;
-    sudo -u h471x chmod 777 /home/h471x/NTSOA/manual/"$1".txt;
-    vf /home/h471x/NTSOA/manual/"$1".txt;
-    cv;
-  else
-    c && br;
-    echo "n o t     f o u n d " | figlet -t -c | lolcat;
-    br && sleep 0.5 && cv;
-  fi
-}
-
 #this alias to edit a file
 alias ed="ed"
 

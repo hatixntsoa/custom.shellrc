@@ -7,8 +7,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# set the default editor
-export EDITOR=nvim
+# Load the custom theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 
 #######################################################################
 
@@ -26,6 +27,9 @@ CASE_SENSITIVE="true"
 
 # termux path
 PATH=$PATH:/data/data/com.termux/files/home/go/bin
+
+# set the default editor
+export EDITOR=nvim
 
 #######################################################################
 
@@ -734,12 +738,5 @@ function pyenv {
     source_env
   }
 }
-
-#######################################################################
-
-### p10k Config
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 #######################################################################

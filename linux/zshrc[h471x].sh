@@ -10,6 +10,9 @@ fi
 # Make zsh instant prompt quiet
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+# Load the custom theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 #######################################################################
 
 ### ZSH Basic Config
@@ -2724,12 +2727,5 @@ function ircoff(){
   sudo service inspircd stop;
   irth;
 }
-
-#######################################################################
-
-### p10k Config
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 #######################################################################

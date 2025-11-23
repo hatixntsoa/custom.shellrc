@@ -2295,6 +2295,7 @@ function new_host {
   local host
   local redirection
   local description
+  local datetime_text=$(date +"%m.%d.%Y %H.%M")
 
   # Get the host
   echo -ne " Source Host : "
@@ -2324,13 +2325,13 @@ function new_host {
   if [[ "$DISPLAY" == ":0" ]]; then
     win_run cmd.exe /c "sudo wsl \
       bash -c '\
-        echo -e \"\n# $description\n$host $redirection\" \
+        echo -e \"\n# $datetime_text\n# $description\n$host $redirection\" \
         >> $WINDOWS_HOSTS'\
       "
   fi
 
   # Add to WSL2 host
-  sudo echo -e "\n# $description\n$host $redirection" \
+  sudo echo -e "\n# $datetime_text\n# $description\n$host $redirection" \
     | sudo tee -a /etc/hosts > /dev/null
 }
 

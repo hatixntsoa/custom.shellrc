@@ -1775,6 +1775,7 @@ function new_host {
   local host
   local redirection
   local description
+  local datetime_text=$(date +"%m.%d.%Y %H.%M")
 
   # Get the host
   echo -ne " Source Host : "
@@ -1793,7 +1794,7 @@ function new_host {
   redirection=$(echo "$redirection" | sed 's/\x1b\[[0-9;]*m//g')
   description=$(echo "$description" | sed 's/\x1b\[[0-9;]*m//g')
 
-  sudo echo -e "\n# $description\n$host $redirection" \
+  sudo echo -e "\n# $datetime_text\n# $description\n$host $redirection" \
     | sudo tee -a /etc/hosts > /dev/null
 }
 

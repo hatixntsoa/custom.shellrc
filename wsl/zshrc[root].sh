@@ -845,14 +845,6 @@ function sshoff(){
 #session_open, variable to check if there is already a terminal session
 #session_open=0
 
-kill-line() {
-  if [[ $BUFFER == "" ]]; then
-    zle backward-kill-line
-  else
-    zle kill-whole-line
-  fi
-}
-
 # call the cv alias whenever a wrong command is typed
 # which doesn't surely exist
 command_not_found_handler() {
@@ -871,9 +863,6 @@ command_not_found_handler() {
     cv;
   fi
 }
-
-zle -N kill-line
-bindkey "²²" kill-line
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

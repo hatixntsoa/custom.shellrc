@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Load the custom theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 set autocd #change directory just by typing his name
 setopt promptsubst #enable command substitution in prompt
 
@@ -863,6 +866,3 @@ command_not_found_handler() {
     cv;
   fi
 }
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

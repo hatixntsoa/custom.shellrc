@@ -2396,12 +2396,6 @@ function reach(){
 
 ### Python Aliases
 
-# this alias to launch exegol
-alias exegol='sudo -E /home/h471x/.local/bin/exegol'
-
-# exegol auto completion
-eval "$(register-python-argcomplete --no-defaults exegol)"
-
 # This function finds all Python virtual
 # environments in the current directory and returns them as an array.
 function find_envs {

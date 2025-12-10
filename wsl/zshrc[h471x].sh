@@ -465,7 +465,9 @@ function cv {
   function show_all {
     c && br;
 
-    if [[ $visible_item -lt 30 ]]; then
+    if [[ $visible_item -eq 0 ]]; then
+      cvf
+    elif [[ $visible_item -lt 30 ]]; then
       show_header;
       br;
       show_content;

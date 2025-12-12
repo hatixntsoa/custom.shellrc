@@ -1637,12 +1637,12 @@ function list_vpn {
 function connect_vpn {
   # first start a silent connection
   win_run cmd.exe /c start \
-    openvpn-gui \
+    sudo openvpn-gui \
     --command silent_connection 1
 
   # connect to the openvpn profile
   win_run cmd.exe /c start \
-    openvpn-gui \
+    sudo openvpn-gui \
     --command connect "$1"
 }
 
@@ -1651,7 +1651,7 @@ function connect_vpn {
 function disconnect_vpn {
   # disconnect from the openvpn profile
   win_run cmd.exe /c start \
-    openvpn-gui \
+    sudo openvpn-gui \
     --command disconnect "$1"
 }
 
@@ -1659,7 +1659,7 @@ function disconnect_vpn {
 # openvpn profiles
 function import_vpn {
   win_run cmd.exe /c start \
-    openvpn-gui \
+    sudo openvpn-gui \
     --command import "$1"
 }
 

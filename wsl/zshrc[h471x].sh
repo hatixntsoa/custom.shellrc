@@ -1637,7 +1637,7 @@ function list_vpn {
 function connect_vpn {
   # first start a silent connection
   win_run cmd.exe /c start \
-    sudo openvpn-gui \
+    openvpn-gui \
     --command silent_connection 1
 
   # connect to the openvpn profile

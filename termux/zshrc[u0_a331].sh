@@ -414,7 +414,7 @@ function rdf {
     echo
 
     if [ "$confirmation" = "y" ]; then
-        sudo rm -rfv "$@"
+        rm -rfv "$@"
     else
         return 0
     fi

@@ -574,8 +574,57 @@ alias remove="allow_sudo && rdf"
 
 # this function for rdf alias
 function rdf {
-  sudo rm -rfv "$@";
-  cv;
+  if [[ $# -eq 0 ]]; then
+    empty_dirs=(${(f)"$(find . -type d -empty -print0 2>/dev/null | tr '\0' '\n')"})
+
+    if (( $#empty_dirs == 0 )); then
+        echo "No empty directories found."
+        return 0
+    fi
+
+    # echo -e "The following empty directories will be deleted:\n"
+    echo -ne "${BOLD}Would you like to ${RED}delete ${RESET}the following ${LIGHT_BLUE}items ${RESET}?\n\n"
+
+    for dir in $empty_dirs; do
+        clean=${dir#./}
+        clean=${clean%/}
+        eza --icons --no-quotes --color=always -d "$clean"
+    done
+
+    echo
+    echo -ne "${BOLD}Confirm ${RESET}delete (y/n): "
+    read confirmation
+    echo
+
+    if [ "$confirmation" = "y" ]; then
+        print -rN -- $empty_dirs | xargs -0 rm -rfv
+    else
+        return 0
+    fi
+  else
+    echo -ne "${BOLD}Would you like to ${RED}delete ${RESET}the following ${LIGHT_BLUE}items ${RESET}?\n\n"
+
+    for item in "$@"; do
+      flag=""
+
+      if [ -d "$item" ]; then
+          flag="-d"
+      fi
+
+      eza --icons --color=always --no-quotes $flag "$item"
+    done
+
+    echo
+    echo -ne "${BOLD}Confirm ${RESET}delete (y/n): "
+    read confirmation
+    echo
+
+    if [ "$confirmation" = "y" ]; then
+        sudo rm -rfv "$@"
+    else
+        return 0
+    fi
+  fi
 }
 
 # this alias to give sudo

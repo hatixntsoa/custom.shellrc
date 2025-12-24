@@ -2896,14 +2896,6 @@ function tf {
   touch "$@" && all "$@" && cv;
 }
 
-# this alias to delete file
-alias dlf="dlf"
-
-# this function for dlf alias
-function dlf {
-  rm "$@" && cv;
-}
-
 # this alias to copy a file then display it
 alias cpf="cpf"
 

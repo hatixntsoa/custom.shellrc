@@ -449,7 +449,7 @@ function cv {
       folder_header="visible($visible_item) hidden($hidden_item) total($total_item) ";
       folder_icon=" "
     fi
-    echo "${BOLD}${WHITE} $folder_icon $folder_name -> $folder_header ${RESET}";
+    echo "${BOLD}${RESET} $folder_icon $folder_name -> $folder_header ${RESET}";
   }
 
   # this function to show the content of the cv
@@ -510,7 +510,7 @@ function cvf {
       folder_header="visible($visible_item) hidden($hidden_item) total($total_item) ";
       folder_icon=" "
     fi
-    echo "${BOLD}${WHITE} $folder_icon $folder_name -> $folder_header ${RESET}";
+    echo "${BOLD}${RESET} $folder_icon $folder_name -> $folder_header ${RESET}";
   }
 
   # this function to show the content of the cv
@@ -708,7 +708,7 @@ function op {
   elif [[ -f "$1" ]]; then
     vf "$1"
   else
-    echo -ne "${BOLD}${GREEN}Create ${WHITE}new directory ${LIGHT_BLUE}$1 ${WHITE}? (y/n) ";
+    echo -ne "${BOLD}${GREEN}Create ${RESET}new directory ${LIGHT_BLUE}$1 ${RESET}? (y/n) ";
     read check_dir
     echo ${RESET}
 
@@ -883,7 +883,7 @@ function rld {
 
   # saved message display
   c && br;
-  echo "${BOLD}${WHITE}$saved_message";
+  echo "${BOLD}${RESET}$saved_message";
   br && sleep 0.5;
   op $backup_dir;
 }
@@ -2144,7 +2144,7 @@ function gthb {
     local current_branch=$(git branch | awk '/\*/ {print $2}');
 
     function check_view {
-      echo -ne "${BOLD}${GREEN}Open ${WHITE}the repo ${LIGHT_BLUE}$repo_name ${WHITE}on GitHub ? (y/n) ";
+      echo -ne "${BOLD}${GREEN}Open ${RESET}the repo ${LIGHT_BLUE}$repo_name ${RESET}on GitHub ? (y/n) ";
       read check_view
       echo ${RESET}
 
@@ -2174,7 +2174,7 @@ function gthb {
       if [ -n "$is_remote_branch" ]; then
         check_view
       else
-        echo "${BOLD} The remote repo ${LIGHT_BLUE}$repo_name ${WHITE}has no branch named ${GREEN}$current_branch ${WHITE}!" && br;
+        echo "${BOLD} The remote repo ${LIGHT_BLUE}$repo_name ${RESET}has no branch named ${GREEN}$current_branch ${RESET}!" && br;
       fi
     else
       open_brave_app $github_link $github_name
@@ -2789,7 +2789,7 @@ function svc_show_stat {
   elif [[ "$check_command" =~ ^[0-9]+$ ]]; then
     echo "${BOLD}$service_name Active ${BOLD}${GREEN} ${RESET}";
   else
-    echo "${BOLD}$service_name Off ${BOLD}${RED}✘ ${WHITE}";
+    echo "${BOLD}$service_name Off ${BOLD}${RED}✘ ${RESET}";
   fi
 
   br;
@@ -2828,11 +2828,11 @@ function sth {
       fi
 
       # Print the iface and ip, ensuring alignment of '==>'
-      echo "${BOLD}${WHITE}$padded_iface ==> ssh $USER@$ip";
+      echo "${BOLD}${RESET}$padded_iface ==> ssh $USER@$ip";
     done <<< "$map_output"
 
   else
-    echo "${BOLD}Ssh Server Off ${BOLD}${RED}✘ ${WHITE}"
+    echo "${BOLD}Ssh Server Off ${BOLD}${RED}✘ ${RESET}"
   fi
 }
 
@@ -2875,11 +2875,11 @@ function stap {
     local wlan_ip=$(ifconfig $wifi_iface | grep "inet " | awk '{print $2}');
     local loopback_ip=$(ifconfig $loopback_iface | grep "inet " | awk '{print $2}');
 
-    echo "$wifi_iface Interface Connection (Public)  : ${BRIGHT_BLUE}http://$wlan_ip${WHITE}";
-    echo "$loopback_iface    Interface Connection (Private) : ${BRIGHT_BLUE}http://$loopback_ip ${WHITE}";
+    echo "$wifi_iface Interface Connection (Public)  : ${BRIGHT_BLUE}http://$wlan_ip${RESET}";
+    echo "$loopback_iface    Interface Connection (Private) : ${BRIGHT_BLUE}http://$loopback_ip ${RESET}";
     br;
   else
-    echo "${BOLD}Apache Server Off ${BOLD}${RED}✘ ${WHITE}"
+    echo "${BOLD}Apache Server Off ${BOLD}${RED}✘ ${RESET}"
     br
   fi
 }
@@ -2894,6 +2894,14 @@ alias tf="tf"
 # this function for tf alias
 function tf {
   touch "$@" && all "$@" && cv;
+}
+
+# this alias to delete file
+alias dlf="dlf"
+
+# this function for dlf alias
+function dlf {
+  rm "$@" && cv;
 }
 
 # this alias to copy a file then display it
@@ -3049,7 +3057,7 @@ command_not_found_handler() {
   fi
 
   if [[ $command_found -eq 0 ]]; then
-    echo " ${BOLD}${WHITE}${BOLD}[${RED}x${WHITE}]${WHITE} Command Not Found"
+    echo " ${BOLD}${RESET}${BOLD}[${RED}x${RESET}]${RESET} Command Not Found"
   fi
 }
 

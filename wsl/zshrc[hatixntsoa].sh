@@ -184,6 +184,59 @@ function rn {
   fi
 }
 
+# this alias will convert any
+# input text format to dotcase
+alias dotcase="dotcase"
+
+# this function for the dotcase alias
+function dotcase {
+  if [[ $# -gt 0 ]]; then
+    to_dotcase "$*"
+    return
+  fi
+
+  # REPL mode
+  # echo "Dotcase REPL - Enter text to convert (Ctrl+C or 'quit' to exit):"
+  echo
+
+  # Trap Ctrl+C (SIGINT) to exit cleanly
+  trap 'echo "\n"; return' INT
+
+  while true; do
+    print -n "dotcase.converter> "
+    # read returns non-zero on EOF (Ctrl+D)
+    if ! read input_text; then
+      return
+    fi
+
+    # Handle empty input
+    if [[ -z "$input_text" ]]; then
+      echo "Please enter some text."
+      echo
+      continue
+    fi
+
+    # Handle quit command
+    if [[ "$input_text" == "quit" || "$input_text" == "exit" ]]; then
+      return
+    fi
+
+    # Convert and print
+    to_dotcase "$input_text"
+    echo
+  done
+}
+
+# this function for dotcase conversion
+function to_dotcase {
+  local text="$1"
+  local text_dotcased=${${text:l}// /.}
+
+  echo $text_dotcased | copy
+  echo $text_dotcased
+  echo "Copied to the clipboard."
+}
+
 # this alias to update the package
 alias upd="allow_sudo && upd"
 

@@ -3008,6 +3008,7 @@ alias remove="allow_sudo && rdf"
 function rdf {
   if [[ $# -eq 0 ]]; then
     empty_dirs=(${(f)"$(find . -type d -empty -print0 2>/dev/null | tr '\0' '\n')"})
+    items_num=${#empty_dirs[@]}
 
     if (( $#empty_dirs == 0 )); then
         echo "No empty directories found."
@@ -3015,7 +3016,7 @@ function rdf {
     fi
 
     # echo -e "The following empty directories will be deleted:\n"
-    echo -ne "${BOLD}Would you like to ${RED}delete ${RESET}the following ${LIGHT_BLUE}items ${RESET}?\n\n"
+    echo -ne "${BOLD}Would you like to ${RED}delete ${RESET}the following ${LIGHT_BLUE}${items_num} items ${RESET}?\n\n"
 
     for dir in $empty_dirs; do
         clean=${dir#./}
@@ -3034,7 +3035,8 @@ function rdf {
         return 0
     fi
   else
-    echo -ne "${BOLD}Would you like to ${RED}delete ${RESET}the following ${LIGHT_BLUE}items ${RESET}?\n\n"
+    items_num=$#
+    echo -ne "${BOLD}Would you like to ${RED}delete ${RESET}the following ${LIGHT_BLUE}${items_num} items ${RESET}?\n\n"
 
     for item in "$@"; do
       flag=""

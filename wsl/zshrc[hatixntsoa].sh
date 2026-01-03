@@ -739,16 +739,33 @@ function op {
   if [[ -L "$1" ]]; then
     # Resolve the real path of the symbolic link
     real_path=$(readlink -f "$1")
+
+    # Show both for clarity
+    symlink_path="${1}"
+
+    # Chosen path
+    local chosen_path
+
+    echo -ne "${BOLD}Open the ${LIGHT_BLUE}real path ${RESET}of ${GREEN}$1 ${RESET}? (y/n) ";
+    read check_path
+    echo ${RESET}
+
+    if [ "$check_path" = "y" ]; then
+      chosen_path="${real_path}"
+    else
+      chosen_path="${symlink_path}"
+    fi
+
     # Check if the resolved path is a directory
-    if [[ -d "$real_path" ]]; then
+    if [[ -d "$chosen_path" ]]; then
       if [[ $# -eq 1 ]]; then
-        cd "$real_path" && cv
+        cd "$chosen_path" && cv
       elif [[ $# -eq 2 ]]; then
-        cd "$real_path" && cvg "$2"
+        cd "$chosen_path" && cvg "$2"
       fi
     # Check if the resolved path is a file
-    elif [[ -f "$real_path" ]]; then
-      vf "$real_path"
+    elif [[ -f "$chosen_path" ]]; then
+      vf "$chosen_path"
     fi
   # If $1 is a directory (but not a symbolic link)
   elif [[ -d "$1" ]]; then

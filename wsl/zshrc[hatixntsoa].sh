@@ -2660,31 +2660,40 @@ alias wpass="wpass"
 # this function for wpass alias
 function wpass {
   cd /mnt/c
+
   if [[ $# -eq 0 ]]; then
-    # consider all arguments as one string
+    # get random saved wifi
     local wifi=$(
       cmd.exe /c netsh wlan show profiles |
         grep -i "All User Profile" |
         awk '{print $5}' | shuf -n 1
     )
-    local password=$(
-      cmd.exe /c netsh wlan show profiles "$wifi" key=clear |
-        grep "Key Content" |
-        awk '{print $4}'
-    )
-    echo "Wifi SSID : $wifi";
-    echo "Password  : $password";
   else
-    # consider all arguments as one string
     local wifi="$*"
-    local password=$(
-      cmd.exe /c netsh wlan show profiles "$wifi" key=clear |
-        grep "Key Content" |
-        awk '{print $4}'
-    )
-    echo "Wifi SSID : $wifi";
-    echo "Password  : $password";
   fi
+
+  # Retrieve password using netsh
+  local password=$(
+    cmd.exe /c netsh wlan show profiles "$wifi" key=clear |
+      grep "Key Content" |
+      awk '{print $4}' |
+      # FIXED : 01.31.2026 00.05
+      # Remove trailing carriage return
+      # from Windows netsh output
+      # Prevents cursor overwrite
+      # issues when echoing or using the password
+      tr -d '\r'
+  )
+ 
+  # Display Plain Text credentials
+  echo "Wifi SSID : $wifi";
+  echo "Password  : $password";
+
+  # Display QR Code if qrencode is installed
+  if command -v qrencode >/dev/null 2>&1; then
+    qrencode -t ansiutf8 "WIFI:T:WPA;S:$wifi;P:$password;H:false;;"
+  fi
+
   cd - &>/dev/null;
 }
 

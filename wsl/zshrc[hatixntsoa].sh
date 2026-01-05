@@ -2733,7 +2733,11 @@ function wls {
     # Print Wi-Fi SSID and password
     echo "Wifi SSID : $wifi"
     echo "Password  : $password"
-    echo
+
+    # Display QR Code if qrencode is installed
+    if command -v qrencode >/dev/null 2>&1; then
+      qrencode -t ansiutf8 "WIFI:T:WPA;S:$wifi;P:$password;H:false;;"
+    fi
   }
 
   function wifi_and_pass {

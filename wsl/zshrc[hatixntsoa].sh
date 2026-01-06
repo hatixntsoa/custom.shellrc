@@ -2655,16 +2655,17 @@ function clean_argument {
 # hard drive of windows instead of WSL
 # directories, so just cd to whatever
 # hard drive of windows to make it run
+# SOLVED: 01.31.2026 00:35
+# Just use netsh.exe since System32
+# is included in your WSL path
 alias wpass="wpass"
 
 # this function for wpass alias
 function wpass {
-  cd /mnt/c
-
   if [[ $# -eq 0 ]]; then
     # get random saved wifi
     local wifi=$(
-      cmd.exe /c netsh wlan show profiles |
+      netsh.exe wlan show profiles |
         grep -i "All User Profile" |
         awk '{print $5}' | shuf -n 1
     )
@@ -2674,10 +2675,10 @@ function wpass {
 
   # Retrieve password using netsh
   local password=$(
-    cmd.exe /c netsh wlan show profiles "$wifi" key=clear |
+    netsh.exe wlan show profiles "$wifi" key=clear |
       grep "Key Content" |
       awk '{print $4}' |
-      # FIXED : 01.31.2026 00.05
+      # FIXED : 01.31.2026 00:05
       # Remove trailing carriage return
       # from Windows netsh output
       # Prevents cursor overwrite
@@ -2693,28 +2694,24 @@ function wpass {
   if command -v qrencode >/dev/null 2>&1; then
     qrencode -t ansiutf8 "WIFI:T:WPA;S:$wifi;P:$password;H:false;;"
   fi
-
-  cd - &>/dev/null;
 }
 
 # Completion function for wpass
 _wpass_completion() {
-  cd /mnt/c
   local cur
 
   # Get the current word being completed
   cur="${COMP_WORDS[COMP_CWORD]}"
 
   # Fetch WiFi profiles
-  local profiles=$(cmd.exe /c netsh wlan show profiles |
+  local profiles=$(netsh.exe wlan show profiles |
     grep -i "All User Profile" |
     awk '{$1=$2=$3=""; print substr($0, 6)}' |
     head -n 1000
   )
 
   # Generate completions
-  COMPREPLY=($(compgen -W "${profiles}" -- "${cur}"))
-  cd - &>/dev/null
+  COMPREPLY=($(compgen -W "${(F)profiles}" -- "$cur"))
 }
 
 # Register the completion function for wpass
@@ -2725,8 +2722,6 @@ alias wls="wls"
 
 # this function for wls alias
 function wls {
-  cd /mnt/c
-
   function print_message {
     wifi="$1"
     password="$2"
@@ -2747,12 +2742,12 @@ function wls {
     while IFS= read -r wifi; do
       # Retrieve password for the current Wi-Fi profile
       local password=$(
-        cmd.exe /c netsh wlan show profiles "$wifi" key=clear |
+        netsh.exe wlan show profiles "$wifi" key=clear |
           grep "Key Content" | awk '{print $4}'
       )
       print_message $wifi $password
     done < <(
-      cmd.exe /c netsh wlan show profiles |
+      netsh.exe wlan show profiles |
         grep -i "$grep_string" |
         grep 'All User Profile' |
         awk '{$1=$2=$3=""; print substr($0, 6)}' |
@@ -2767,7 +2762,7 @@ function wls {
       echo "- $wifi"
       ((wifi_count++))
     done < <(
-      cmd.exe /c netsh wlan show profiles |
+      netsh.exe wlan show profiles |
         grep 'All User Profile' |
         awk '{$1=$2=$3=""; print substr($0, 6)}'
     )
@@ -2776,7 +2771,7 @@ function wls {
   if [[ $# -eq 0 ]]; then
     num_profiles=1
     grep_string=$(
-      cmd.exe /c netsh wlan show profiles |
+      netsh.exe wlan show profiles |
         grep -i "All User Profile" |
         awk '{print $5}' | shuf -n 1
     )
@@ -2796,8 +2791,6 @@ function wls {
       echo "Known Wi-Fi Connections ($wifi_count) "
     fi
   fi
-
-  cd - &>/dev/null;
 }
 
 # this alias to reach a network

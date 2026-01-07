@@ -1191,7 +1191,7 @@ alias nslookup="nslookup"
 
 # this function for nslookup alias
 function nslookup(){
-  win_run cmd.exe /c nslookup "$@"
+  nslookup.exe "$@"
 }
 
 # this alias to use windows arp
@@ -1199,7 +1199,7 @@ alias arp="arp"
 
 # this function for arp alias
 function arp {
-  win_run cmd.exe /c arp "$@"
+  arp.exe "$@"
 }
 
 # this function to open virtual box
@@ -1352,13 +1352,13 @@ function obsd {
 function remote {
   if [[ "$1" == "stop" ]]; then
     # Check if the Remote Server is running
-    if win_run cmd.exe /c "tasklist | findstr RemoteServerWin.exe" &>/dev/null; then
-      win_run cmd.exe /c "taskkill /IM RemoteServerWin.exe /F" &>/dev/null
+    if tasklist.exe | grep RemoteServerWin.exe &>/dev/null; then
+      taskkill.exe /IM RemoteServerWin.exe /F &>/dev/null
     fi
   else
     # Check if the Remote Server is running
-    if win_run cmd.exe /c "tasklist | findstr RemoteServerWin.exe" &>/dev/null; then
-      win_run cmd.exe /c "taskkill /IM RemoteServerWin.exe /F" &>/dev/null
+    if tasklist.exe | grep RemoteServerWin.exe &>/dev/null; then
+      taskkill.exe /IM RemoteServerWin.exe /F &>/dev/null
     fi
 
     open_win_app $UNIFIED_REMOTE_PATH RemoteServerWin.exe
@@ -1467,8 +1467,8 @@ function obs {
   cd $OBS_PATH
 
   # Check if OBS is running
-  if cmd.exe /c "tasklist | findstr obs64.exe" &>/dev/null; then
-    cmd.exe /c "taskkill /IM obs64.exe /F"
+  if tasklist.exe | grep obs64.exe &>/dev/null; then
+    taskkill.exe /IM obs64.exe /F
   fi
 
   # Minimize all windows
@@ -2152,8 +2152,8 @@ alias pvpn="pvpn"
 function pvpn {
   if [[ "$1" == "connect" ]]; then
     # Check if ProtonVPN is running
-    if win_run cmd.exe /c "tasklist | findstr ProtonVPN.exe" &>/dev/null; then
-      win_run cmd.exe /c "taskkill /IM ProtonVPN.exe /F" &>/dev/null
+    if tasklist.exe | grep ProtonVPN.exe &>/dev/null; then
+      taskkill.exe /IM ProtonVPN.exe /F &>/dev/null
     fi
 
     open_win_app $PROTON_VPN_PATH ProtonVPN.Launcher.exe
@@ -2530,7 +2530,7 @@ alias hosts="nvmr /etc/hosts"
 
 # this function to scan windows network
 function scan {
-  output=$(win_run cmd.exe /c "netsh interface ip show neighbors" | grep Stale | awk '{print $1}')
+  output=$(netsh.exe interface ip show neighbors | grep Stale | awk '{print $1}')
 
   echo " Connected Devices : $(echo "$output" | wc -l)"
 

@@ -229,8 +229,10 @@ function dotcase {
 
 # this function for dotcase conversion
 function to_dotcase {
-  local text="$1"
-  local text_dotcased=${${text:l}// /.}
+  local text_dotcased=$(echo "$1" \
+    | tr '[:upper:]' '[:lower:]' \
+    | tr -s -c '[:alnum:]' '.' \
+    | sed 's/^\.*//; s/\.*$//')
 
   echo $text_dotcased | copy
   echo $text_dotcased

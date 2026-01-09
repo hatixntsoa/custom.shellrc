@@ -689,20 +689,21 @@ alias vf="vf"
 function vf {
   if [[ -f "$1" ]]; then
     if [[ "$DISPLAY" == ":0" ]]; then
-      case "${1##*.}" in
-        txt|evtx|pbix|webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
-          explorer.exe "$1"
-          ;;
-        # open all files that have default app with windows explorer
-        html)
-          if [[ "$PWD" == "/mnt/"* ]]; then
-            explorer.exe "$1"
-          else
-            bwsop "$1"
-          fi
-          ;;
-        *) nvim "$1" ;;
-      esac
+      explorer.exe "$1"
+      # case "${1##*.}" in
+      #   txt|evtx|pbix|webp|exe|kdbx|ova|csv|mkv|vnc|db|sqlite*|xlsx|docx|docm|pptx|ppt|wmv|pcap|pcapng|pdf|jpg|jpeg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)
+      #     explorer.exe "$1"
+      #     ;;
+      #   # open all files that have default app with windows explorer
+      #   html)
+      #     if [[ "$PWD" == "/mnt/"* ]]; then
+      #       explorer.exe "$1"
+      #     else
+      #       bwsop "$1"
+      #     fi
+      #     ;;
+      #   *) nvim "$1" ;;
+      # esac
     else
       case "${1##*.}" in
         html|vnc|db|sqlite*|xlsx|docx|pptx|ppt|wmv|pcapng|pdf|jpg|png|JPG|PNG|lnk|docx|xslsx|pptx|mp*|zip|rar|gns3|rdp)

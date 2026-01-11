@@ -1672,7 +1672,8 @@ function brave {
   if [[ "$1" == "burp" ]]; then
     win_run cmd.exe /c start brave --ignore-certificate-errors
   else
-    open_link "$*" brave.exe
+    # open_link "$*" brave.exe
+    brave.exe "$*"
   fi
 }
 

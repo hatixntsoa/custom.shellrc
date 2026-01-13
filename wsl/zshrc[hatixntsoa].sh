@@ -1,7 +1,7 @@
 ### Powerlevel10k Theme
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
+# Initialization code that may require console input (password prompts, [y|n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -682,6 +682,16 @@ function copy {
   fi
 }
 
+# TODO : move alias to move files and directories into destination
+
+# this alias to move files
+alias move="move"
+
+# this function for move alias
+function move {
+
+}
+
 # this alias to view inside a file
 alias vf="vf"
 
@@ -749,7 +759,7 @@ function op {
     # Chosen path
     local chosen_path
 
-    echo -ne "${BOLD}Open the ${LIGHT_BLUE}real path ${RESET}of ${GREEN}$1 ${RESET}? (y/n) ";
+    echo -ne "${BOLD}Open the ${LIGHT_BLUE}real path ${RESET}of ${GREEN}$1 ${RESET}? [y|n] ";
     read check_path
     echo ${RESET}
 
@@ -781,7 +791,7 @@ function op {
   elif [[ -f "$1" ]]; then
     vf "$1"
   else
-    echo -ne "${BOLD}${GREEN}Create ${RESET}new directory ${LIGHT_BLUE}$1 ${RESET}? (y/n) ";
+    echo -ne "${BOLD}${GREEN}Create ${RESET}new directory ${LIGHT_BLUE}$1 ${RESET}? [y|n] ";
     read check_dir
     echo ${RESET}
 
@@ -2218,7 +2228,7 @@ function gthb {
     local current_branch=$(git branch | awk '/\*/ {print $2}');
 
     function check_view {
-      echo -ne "${BOLD}${GREEN}Open ${RESET}the repo ${LIGHT_BLUE}$repo_name ${RESET}on GitHub ? (y/n) ";
+      echo -ne "${BOLD}${GREEN}Open ${RESET}the repo ${LIGHT_BLUE}$repo_name ${RESET}on GitHub ? [y|n] ";
       read check_view
       echo ${RESET}
 
@@ -3049,7 +3059,7 @@ function rdf {
     done
 
     echo
-    echo -ne "${BOLD}Confirm ${RESET}delete (y/n): "
+    echo -ne "${BOLD}Confirm ${RESET}delete [y|n]: "
     read confirmation
     echo
 
@@ -3073,7 +3083,7 @@ function rdf {
     done
 
     echo
-    echo -ne "${BOLD}Confirm ${RESET}delete (y/n): "
+    echo -ne "${BOLD}Confirm ${RESET}delete [y|n]: "
     read confirmation
     echo
 

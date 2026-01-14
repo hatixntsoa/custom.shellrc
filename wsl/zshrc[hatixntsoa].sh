@@ -759,7 +759,7 @@ function op {
     # Chosen path
     local chosen_path
 
-    echo -ne "${BOLD}Open the ${LIGHT_BLUE}real path ${RESET}of ${GREEN}$1 ${RESET}? [y|n] ";
+    echo -ne "${BOLD}Open the ${LIGHT_BLUE}real path ${RESET}of ${GREEN}$1 ${RESET}? [y|n]: ";
     read check_path
     echo ${RESET}
 
@@ -791,7 +791,7 @@ function op {
   elif [[ -f "$1" ]]; then
     vf "$1"
   else
-    echo -ne "${BOLD}${GREEN}Create ${RESET}new directory ${LIGHT_BLUE}$1 ${RESET}? [y|n] ";
+    echo -ne "${BOLD}${GREEN}Create ${RESET}new directory ${LIGHT_BLUE}$1 ${RESET}? [y|n]: ";
     read check_dir
     echo ${RESET}
 
@@ -2228,7 +2228,7 @@ function gthb {
     local current_branch=$(git branch | awk '/\*/ {print $2}');
 
     function check_view {
-      echo -ne "${BOLD}${GREEN}Open ${RESET}the repo ${LIGHT_BLUE}$repo_name ${RESET}on GitHub ? [y|n] ";
+      echo -ne "${BOLD}${GREEN}Open ${RESET}the repo ${LIGHT_BLUE}$repo_name ${RESET}on GitHub ? [y|n]: ";
       read check_view
       echo ${RESET}
 

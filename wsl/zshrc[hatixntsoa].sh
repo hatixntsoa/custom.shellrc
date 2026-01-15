@@ -689,7 +689,7 @@ alias move="move"
 
 # this function for move alias
 function move {
-
+  mv -v "$1" "$2"
 }
 
 # this alias to view inside a file
